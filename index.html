@@ -999,27 +999,107 @@ footer {
 .wa-float:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(37,211,102,.5); }
 
 /* ═══ RESPONSIVE ═══ */
+/* ── HAMBURGER BUTTON ── */
+.hamburger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 36px; height: 36px;
+  background: none; border: 1px solid var(--border2);
+  border-radius: var(--r-sm); cursor: pointer;
+  padding: 0; flex-shrink: 0;
+  transition: border-color .2s;
+}
+.hamburger span {
+  display: block; width: 16px; height: 1.5px;
+  background: var(--ink2); border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── MOBILE NAV DRAWER ── */
+.mobile-menu {
+  display: none;
+  position: fixed; top: 60px; left: 0; right: 0;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 1.2rem clamp(1.5rem, 5vw, 4rem);
+  z-index: 190;
+  box-shadow: var(--shadow);
+  flex-direction: column; gap: .25rem;
+  animation: menu-in .2s ease;
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--ink2); text-decoration: none;
+  font-size: 1rem; font-weight: 400;
+  padding: .75rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color .2s;
+}
+.mobile-menu a:last-of-type { border-bottom: none; }
+.mobile-menu a:hover { color: var(--green); }
+.mobile-menu .mobile-cta {
+  margin-top: .75rem;
+  display: block; text-align: center;
+  background: var(--green); color: #fff;
+  padding: 12px; border-radius: var(--r-sm);
+  font-weight: 600; font-size: .95rem;
+  text-decoration: none;
+}
+
+/* ── TABLET ── */
 @media (max-width: 960px) {
   .hero-inner, .problema-inner, .cta-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .hero-visual { display: none; }
   .feat-grid { grid-template-columns: 1fr 1fr; }
   .steps-grid { grid-template-columns: 1fr; }
   .steps-line { display: none; }
-  .testi-grid { grid-template-columns: 1fr; }
-  .features-head { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr 1fr; }
   .nav-links { display: none; }
+  .hamburger { display: flex; }
   #themeLabel { display: none; }
   .footer-inner { flex-direction: column; }
   .wa-float .wa-lbl { display: none; }
   .wa-float { padding: 14px; border-radius: 50%; }
   .f-row { grid-template-columns: 1fr; }
+  #demo iframe { height: 480px; }
 }
+
+/* ── MOBILE ── */
 @media (max-width: 600px) {
   .feat-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
   .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
   .strip-inner { flex-direction: column; gap: 2rem; }
   .strip-div { display: none; }
-  .trust-inner { gap: 1.5rem; }
+  .trust-inner { gap: 1.2rem; flex-direction: column; align-items: flex-start; }
+  .pricing-card { padding: 36px 24px; }
+  #demo iframe { height: 380px; }
+  .h2 { font-size: clamp(1.6rem, 6vw, 2rem); }
+  .hero-title { font-size: clamp(2.2rem, 8vw, 3rem); }
+  .footer-links { gap: 2rem; }
+}
+
+/* ── SMALL PHONES (375px and below) ── */
+@media (max-width: 400px) {
+  .container { padding: 0 1.1rem; }
+  #hero { padding: 100px 0 60px; }
+  .hero-title { font-size: clamp(2rem, 9vw, 2.6rem); }
+  .hero-sub { font-size: .95rem; }
+  .btn-primary, .btn-ghost { padding: 12px 18px; font-size: .9rem; }
+  .hero-stats { gap: 1.2rem; }
+  .stat-n { font-size: 1.5rem; }
+  .pricing-card { padding: 32px 18px; }
+  .pricing-price { font-size: 2.4rem; }
+  .cf { padding: 22px 16px; }
+  section { padding-top: 72px; padding-bottom: 72px; }
+  #demo iframe { height: 320px; }
+  .wa-float { bottom: 16px; right: 16px; }
 }
 </style>
 </head>
@@ -1042,6 +1122,9 @@ footer {
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:.75rem;">
+    <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <button id="themeToggle" aria-label="Cambiar tema" style="
       display:flex;align-items:center;gap:6px;
       background:none;border:1px solid var(--border2);
@@ -1054,6 +1137,15 @@ footer {
     <a href="#contacto" class="btn-nav">Solicitar demo →</a>
   </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menú móvil">
+  <a href="#features" onclick="closeMobileMenu()">Módulos</a>
+  <a href="#demo"     onclick="closeMobileMenu()">Demo</a>
+  <a href="#pricing"  onclick="closeMobileMenu()">Precio</a>
+  <a href="#contacto" onclick="closeMobileMenu()">Contacto</a>
+  <a href="#contacto" class="mobile-cta" onclick="closeMobileMenu()">Solicitar demo gratis →</a>
+</div>
 
 <!-- HERO -->
 <section id="hero" aria-label="Presentación BBC File">
@@ -1525,14 +1617,34 @@ function applyTheme(theme) {
 const saved = localStorage.getItem('bbc-theme');
 applyTheme(saved || getSystemTheme());
 
-toggleBtn.addEventListener('click', () => {
-  const current = root.getAttribute('data-theme');
-  applyTheme(current === 'dark' ? 'light' : 'dark');
-});
 
 // ── Nav scroll ──
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+
+// ── Hamburger menu ──
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+function closeMobileMenu() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+
+hamburger.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', String(isOpen));
+});
+
+// Close on outside click
+document.addEventListener('click', (e) => {
+  if (!nav.contains(e.target) && !mobileMenu.contains(e.target)) closeMobileMenu();
+});
+
+// Close on scroll
+window.addEventListener('scroll', () => closeMobileMenu(), {passive:true, once:false});
 
 // Scroll fade-up
 const obs = new IntersectionObserver((entries) => {
