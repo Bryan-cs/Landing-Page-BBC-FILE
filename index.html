@@ -3,899 +3,811 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BBC File Service — Gestión de Personal y Seguridad Social Colombiana</title>
+<title>BBC File — Gestión de Personal y Seguridad Social Colombiana</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600;1,9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600;1,9..144,700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:        #070a08;
-  --bg2:       #0c110d;
-  --bg3:       #111a12;
-  --surface:   #182019;
-  --border:    rgba(34,197,94,0.1);
-  --border2:   rgba(34,197,94,0.25);
-  --border3:   rgba(34,197,94,0.4);
-  --green:     #22c55e;
-  --green-dk:  #16a34a;
-  --green-s:   rgba(34,197,94,0.08);
-  --green-s2:  rgba(34,197,94,0.14);
-  --gold:      #d97706;
-  --gold-lt:   #fbbf24;
-  --gold-s:    rgba(217,119,6,0.1);
-  --gold-b:    rgba(217,119,6,0.22);
-  --text:      #ece8e1;
-  --text-2:    #7a9480;
-  --text-3:    #3d5140;
-  --red:       #ef4444;
-  --red-s:     rgba(239,68,68,0.09);
-  --r:         10px;
-  --r-sm:      5px;
-  --r-lg:      18px;
+  --bg:       #fafaf8;
+  --bg2:      #f3f3f0;
+  --bg3:      #eaeae6;
+  --white:    #ffffff;
+  --green:    #16a34a;
+  --green-lt: #22c55e;
+  --green-xs: rgba(22,163,74,0.07);
+  --green-sm: rgba(22,163,74,0.13);
+  --green-md: rgba(22,163,74,0.22);
+  --ink:      #111311;
+  --ink2:     #3d4a3e;
+  --ink3:     #7a8c7b;
+  --ink4:     #b8c4b9;
+  --border:   #e4e8e4;
+  --border2:  #d0d8d1;
+  --red:      #dc2626;
+  --red-s:    rgba(220,38,38,0.08);
+  --gold:     #d97706;
+  --gold-s:   rgba(217,119,6,0.09);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.05);
+  --shadow:    0 2px 8px rgba(0,0,0,.07), 0 12px 32px rgba(0,0,0,.08);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,.08), 0 24px 64px rgba(0,0,0,.12);
+  --r:    12px;
+  --r-sm:  6px;
+  --r-lg: 20px;
 }
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
-  color: var(--text);
+  color: var(--ink);
   font-family: 'IBM Plex Sans', system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* ── GRAIN + DOT GRID ── */
-body::before {
-  content:'';
-  position:fixed;inset:0;
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:0;opacity:.65;
-}
-body::after {
-  content:'';
-  position:fixed;inset:0;
-  background-image: radial-gradient(circle, rgba(34,197,94,0.055) 1px, transparent 1px);
-  background-size: 28px 28px;
-  pointer-events:none;z-index:0;opacity:1;
-}
-
-/* ── NAV ── */
+/* ═══ NAV ═══ */
 nav {
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding: 0 clamp(1.5rem,5vw,4rem);
-  height: 60px;
-  background: rgba(7,10,8,0.9);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  height: 62px;
+  background: rgba(250,250,248,0.88);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  transition: background .3s;
+  transition: box-shadow .3s;
 }
-nav.scrolled { background: rgba(7,10,8,0.97); }
+nav.scrolled { box-shadow: var(--shadow-sm); }
 
 .logo {
-  display:flex;align-items:center;gap:9px;
-  text-decoration:none;color:var(--text);
-  font-family:'IBM Plex Mono',monospace;
-  font-weight:600;font-size:.9rem;letter-spacing:.01em;
+  display: flex; align-items: center; gap: 9px;
+  text-decoration: none; color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600; font-size: .92rem; letter-spacing: -.01em;
 }
-.logo svg { flex-shrink:0; }
 
 .nav-links {
-  display:flex;align-items:center;gap:2rem;list-style:none;
+  display: flex; align-items: center; gap: 2rem; list-style: none;
 }
 .nav-links a {
-  color:var(--text-2);text-decoration:none;
-  font-size:.85rem;font-weight:400;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:.01em;
-  transition:color .2s;
+  color: var(--ink3); text-decoration: none;
+  font-size: .9rem; font-weight: 400;
+  transition: color .2s;
 }
-.nav-links a:hover { color:var(--text); }
+.nav-links a:hover { color: var(--ink); }
 
 .btn-nav {
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--green-s);
-  border:1px solid var(--border2);
-  color:var(--green);
-  padding:7px 16px;border-radius:var(--r-sm);
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.8rem;font-weight:600;
-  letter-spacing:.02em;text-decoration:none;
-  transition:background .2s,border-color .2s;cursor:pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green); color: #fff;
+  padding: 8px 18px; border-radius: var(--r-sm);
+  font-size: .88rem; font-weight: 600;
+  text-decoration: none; cursor: pointer; border: none;
+  transition: background .2s, transform .15s;
 }
-.btn-nav:hover { background:var(--green-s2);border-color:var(--border3); }
+.btn-nav:hover { background: #15803d; transform: translateY(-1px); }
 
-/* ── BUTTONS ── */
+/* ═══ BUTTONS ═══ */
 .btn-primary {
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--green);color:#070a08;
-  padding:13px 26px;border-radius:var(--r-sm);
-  font-size:.95rem;font-weight:700;letter-spacing:-.01em;
-  text-decoration:none;border:none;cursor:pointer;
-  transition:background .2s,transform .15s,box-shadow .2s;
-  box-shadow:0 4px 20px rgba(34,197,94,.22);
-  font-family:'IBM Plex Sans',sans-serif;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--green); color: #fff;
+  padding: 14px 28px; border-radius: var(--r-sm);
+  font-size: 1rem; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 4px 16px rgba(22,163,74,.3);
 }
 .btn-primary:hover {
-  background:#1db854;transform:translateY(-1px);
-  box-shadow:0 8px 28px rgba(34,197,94,.32);
+  background: #15803d; transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(22,163,74,.38);
 }
 
 .btn-ghost {
-  display:inline-flex;align-items:center;gap:8px;
-  background:transparent;color:var(--text-2);
-  padding:13px 22px;border-radius:var(--r-sm);
-  font-size:.95rem;font-weight:400;
-  text-decoration:none;border:1px solid var(--border);cursor:pointer;
-  transition:border-color .2s,color .2s;
-  font-family:'IBM Plex Sans',sans-serif;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--ink2);
+  padding: 14px 22px; border-radius: var(--r-sm);
+  font-size: 1rem; font-weight: 400;
+  text-decoration: none; border: 1px solid var(--border2); cursor: pointer;
+  transition: border-color .2s, color .2s, background .2s;
 }
-.btn-ghost:hover { border-color:var(--border2);color:var(--text); }
+.btn-ghost:hover { border-color: var(--green); color: var(--green); background: var(--green-xs); }
 
-/* ── LAYOUT ── */
-section{position:relative;z-index:1;}
-
+/* ═══ LAYOUT ═══ */
+section { position: relative; }
 .container {
-  max-width:1160px;margin:0 auto;
-  padding:0 clamp(1.5rem,5vw,4rem);
+  max-width: 1160px; margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
 }
 
-/* ── SECTION MARKERS ── */
-.s-tag {
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.65rem;font-weight:500;
-  letter-spacing:.14em;text-transform:uppercase;
-  color:var(--green);margin-bottom:1.1rem;
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .72rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--green);
+  margin-bottom: 1rem;
 }
-.s-tag::before {
-  content:'';display:inline-block;
-  width:20px;height:1px;background:var(--green);opacity:.6;
+.tag::before {
+  content: ''; display: inline-block;
+  width: 18px; height: 1.5px; background: var(--green); border-radius: 2px;
 }
 
-.s-title {
-  font-family:'Fraunces',Georgia,serif;
-  font-size:clamp(2rem,4vw,2.85rem);
-  font-weight:700;letter-spacing:-.03em;line-height:1.1;
-  color:var(--text);
+.h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(2.6rem, 5.5vw, 4rem);
+  font-weight: 700; letter-spacing: -.04em; line-height: 1.07;
+  color: var(--ink);
 }
-.s-title em { font-style:italic;color:var(--green); }
-.s-title .gold { font-style:italic;color:var(--gold-lt); }
+.h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.9rem, 3.8vw, 2.8rem);
+  font-weight: 700; letter-spacing: -.035em; line-height: 1.1;
+  color: var(--ink);
+}
+.h2 em { font-style: italic; color: var(--green); }
 
-.s-sub {
-  font-size:1.02rem;color:var(--text-2);
-  max-width:500px;line-height:1.72;margin-top:.9rem;
-}
-
-/* ── HERO ENTRANCE (CSS, no JS needed) ── */
-@keyframes hero-in {
-  from { opacity:0; transform:translateY(28px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-@keyframes hero-in-right {
-  from { opacity:0; transform:translateX(32px) rotate(.5deg); }
-  to   { opacity:1; transform:translateX(0) rotate(0deg); }
-}
-@keyframes slide-in-left {
-  from { opacity:0; transform:translateX(-16px); }
-  to   { opacity:1; transform:translateX(0); }
-}
-@keyframes count-reveal {
-  from { opacity:0; transform:translateY(12px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-@keyframes underline-grow {
-  from { transform:scaleX(0); }
-  to   { transform:scaleX(1); }
-}
-@keyframes pulse-ring {
-  0%   { box-shadow:0 0 0 0 rgba(34,197,94,.35); }
-  70%  { box-shadow:0 0 0 10px rgba(34,197,94,0); }
-  100% { box-shadow:0 0 0 0 rgba(34,197,94,0); }
+.sub {
+  font-size: 1.05rem; color: var(--ink3);
+  line-height: 1.72; margin-top: .85rem;
+  font-weight: 300;
 }
 
-.hero-kicker  { animation: slide-in-left .5s ease both; animation-delay:.05s; }
-.hero-title   { animation: hero-in .65s ease both;      animation-delay:.18s; }
-.hero-desc    { animation: hero-in .65s ease both;      animation-delay:.32s; }
-.hero-actions { animation: hero-in .65s ease both;      animation-delay:.44s; }
-.hero-stats   { animation: hero-in .65s ease both;      animation-delay:.58s; }
-.hero-visual  { animation: hero-in-right .8s ease both; animation-delay:.28s; }
+/* ═══ ANIMATIONS ═══ */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes rise-right {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-.3deg); }
+  50%      { transform: translateY(-10px) rotate(.3deg); }
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+@keyframes underline-in {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes badge-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-/* Kicker pulse on dot */
-.kicker-dot { animation: blink 2.2s ease-in-out infinite, pulse-ring 2.5s ease-out 1s infinite; }
+/* Hero stagger */
+.hero-badge   { animation: badge-in .45s ease both .05s; }
+.hero-title   { animation: rise .65s ease both .15s; }
+.hero-sub     { animation: rise .65s ease both .3s; }
+.hero-actions { animation: rise .65s ease both .44s; }
+.hero-stats   { animation: rise .65s ease both .58s; }
+.hero-visual  { animation: rise-right .8s ease both .22s; }
 
-/* ── FADE UP (scroll) ── */
+/* Scroll fade */
 .fu {
-  opacity:0;transform:translateY(24px);
-  transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
 }
-.fu.vis { opacity:1;transform:translateY(0); }
+.fu.vis { opacity: 1; transform: translateY(0); }
 
-/* Stagger for feat-grid children */
-.feat-grid .feat-card { transition-delay:0s; }
-.feat-grid .feat-card:nth-child(1){transition-delay:.04s}
-.feat-grid .feat-card:nth-child(2){transition-delay:.08s}
-.feat-grid .feat-card:nth-child(3){transition-delay:.12s}
-.feat-grid .feat-card:nth-child(4){transition-delay:.16s}
-.feat-grid .feat-card:nth-child(5){transition-delay:.20s}
-.feat-grid .feat-card:nth-child(6){transition-delay:.24s}
-.feat-grid .feat-card:nth-child(7){transition-delay:.28s}
-.feat-grid .feat-card:nth-child(8){transition-delay:.32s}
-.feat-grid .feat-card:nth-child(9){transition-delay:.36s}
-.feat-grid .feat-card:nth-child(10){transition-delay:.40s}
-.feat-grid .feat-card:nth-child(11){transition-delay:.44s}
-.feat-grid .feat-card:nth-child(12){transition-delay:.48s}
-
-/* Table row entrance */
-.m-table tbody tr {
-  opacity:0;transform:translateX(-8px);
-  animation: slide-in-left .4s ease forwards;
-}
-.m-table tbody tr:nth-child(1){animation-delay:.8s}
-.m-table tbody tr:nth-child(2){animation-delay:.95s}
-.m-table tbody tr:nth-child(3){animation-delay:1.1s}
-.m-table tbody tr:nth-child(4){animation-delay:1.25s}
-
-/* Italic accent underline */
-.hero-title em {
-  position:relative;display:inline-block;
-}
-.hero-title em::after {
-  content:'';
-  position:absolute;bottom:-4px;left:0;right:0;height:2px;
-  background:var(--green);opacity:.45;border-radius:2px;
-  transform:scaleX(0);transform-origin:left;
-  animation:underline-grow .6s ease forwards;
-  animation-delay:.95s;
-}
-
-/* Stats counter */
-.stat-num {
-  font-variant-numeric: tabular-nums;
-}
-
-/* ══════════════════════════════════════════════
-   HERO
-══════════════════════════════════════════════ */
+/* ═══ HERO ═══ */
 #hero {
-  padding: 128px 0 96px;
-  overflow:hidden;
+  padding: 120px 0 80px;
+  background: linear-gradient(180deg, #f0f7f2 0%, var(--bg) 60%);
+  overflow: hidden;
 }
 
 .hero-inner {
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:5rem;align-items:center;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
 }
 
-.hero-kicker {
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.68rem;font-weight:500;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:var(--green);
-  background:var(--green-s);
-  border:1px solid rgba(34,197,94,.18);
-  padding:5px 12px;border-radius:3px;
-  margin-bottom:1.8rem;
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .78rem; font-weight: 500;
+  color: var(--green); background: var(--green-xs);
+  border: 1px solid var(--green-md);
+  padding: 5px 14px; border-radius: 100px;
+  margin-bottom: 1.6rem;
 }
-.kicker-dot {
-  width:6px;height:6px;border-radius:50%;
-  background:var(--green);
-  animation:blink 2.2s ease-in-out infinite;
+.badge-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green);
+  animation: blink 2s ease-in-out infinite;
 }
-@keyframes blink { 0%,100%{opacity:1}50%{opacity:.25} }
 
 .hero-title {
-  font-family:'Fraunces',Georgia,serif;
-  font-size:clamp(2.8rem,5.8vw,4.2rem);
-  font-weight:700;letter-spacing:-.04em;
-  line-height:1.05;color:var(--text);
-  margin-bottom:1.5rem;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(2.8rem, 5.8vw, 4.1rem);
+  font-weight: 700; letter-spacing: -.04em; line-height: 1.07;
+  color: var(--ink); margin-bottom: 1.4rem;
 }
 .hero-title em {
-  font-style:italic;color:var(--green);
-  font-weight:600;
+  font-style: italic; color: var(--green);
+  position: relative; display: inline-block;
+}
+.hero-title em::after {
+  content: ''; position: absolute;
+  bottom: -3px; left: 0; right: 0; height: 2px;
+  background: var(--green); opacity: .4; border-radius: 2px;
+  transform: scaleX(0); transform-origin: left;
+  animation: underline-in .55s ease forwards .85s;
 }
 
-.hero-desc {
-  font-size:1.05rem;color:var(--text-2);
-  line-height:1.75;max-width:460px;margin-bottom:2.2rem;
-  font-weight:300;
+.hero-sub {
+  font-size: 1.1rem; color: var(--ink3); line-height: 1.72;
+  max-width: 440px; margin-bottom: 2.2rem; font-weight: 300;
 }
 
-.hero-actions {
-  display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
-}
+.hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 
 .hero-stats {
-  display:flex;gap:2.5rem;
-  margin-top:3rem;padding-top:2rem;
-  border-top:1px solid var(--border);
+  display: flex; gap: 2.5rem;
+  margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid var(--border);
 }
-.stat-num {
-  font-family:'IBM Plex Mono',monospace;
-  font-size:1.65rem;font-weight:600;
-  color:var(--text);letter-spacing:-.02em;
+.stat-n {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.9rem; font-weight: 700;
+  letter-spacing: -.03em; color: var(--ink);
 }
-.stat-label {
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.65rem;color:var(--text-2);
-  margin-top:3px;letter-spacing:.04em;
-  text-transform:uppercase;
+.stat-l {
+  font-size: .75rem; color: var(--ink3);
+  margin-top: 2px; font-weight: 400;
 }
 
-/* ── Afiliados Mockup ── */
-.hero-visual { position:relative; }
+/* ── Module Mockup ── */
+.hero-visual { position: relative; }
 
 .module-card {
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:var(--r);overflow:hidden;
-  animation:float 6s ease-in-out infinite;
-  box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(34,197,94,.05);
-}
-@keyframes float {
-  0%,100%{transform:translateY(0) rotate(-.4deg)}
-  50%{transform:translateY(-10px) rotate(.4deg)}
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  animation: float 6s ease-in-out infinite;
+  box-shadow: var(--shadow-lg);
 }
 
 .m-topbar {
-  display:flex;align-items:center;justify-content:space-between;
-  padding:9px 14px;
-  background:var(--bg3);border-bottom:1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 15px;
+  background: #f7f7f5;
+  border-bottom: 1px solid var(--border);
 }
-.m-dots{display:flex;gap:5px;}
-.m-dots span{width:9px;height:9px;border-radius:50%;}
-.m-dots .r{background:#ef4444}
-.m-dots .y{background:#f59e0b}
-.m-dots .g{background:var(--green)}
-.m-bar-title{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.65rem;color:var(--text-2);
+.m-dots { display: flex; gap: 5px; }
+.m-dots span { width: 9px; height: 9px; border-radius: 50%; }
+.m-dots .r { background: #fc5f57; }
+.m-dots .y { background: #fdbc2c; }
+.m-dots .g { background: #2bc840; }
+.m-url {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .64rem; color: var(--ink3);
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 2px 10px; border-radius: 3px;
 }
-.m-status{
-  display:flex;align-items:center;gap:5px;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.6rem;color:var(--green);
+.m-live {
+  display: flex; align-items: center; gap: 5px;
+  font-size: .65rem; color: var(--green); font-weight: 600;
 }
-.m-status-dot{width:5px;height:5px;border-radius:50%;background:var(--green);}
+.m-live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
 
 .m-head {
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 14px 8px;
-  border-bottom:1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 15px 8px;
+  border-bottom: 1px solid var(--border);
 }
-.m-name{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.75rem;font-weight:600;color:var(--text);
-  letter-spacing:.03em;
+.m-mod-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem; font-weight: 600; color: var(--ink);
+  letter-spacing: .03em;
 }
-.m-tabs{display:flex;gap:4px;}
-.m-tab{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.6rem;padding:3px 9px;border-radius:3px;cursor:pointer;
+.m-tabs { display: flex; gap: 4px; }
+.m-tab {
+  font-size: .65rem; padding: 3px 9px; border-radius: 3px; cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
 }
-.m-tab.active{background:var(--green-s);color:var(--green);border:1px solid rgba(34,197,94,.2);}
-.m-tab:not(.active){color:var(--text-3);}
+.m-tab.on { background: var(--green-xs); color: var(--green); border: 1px solid var(--green-md); }
+.m-tab:not(.on) { color: var(--ink4); }
 
-.m-filters{
-  display:flex;align-items:center;gap:6px;
-  padding:7px 14px;border-bottom:1px solid var(--border);
+.m-filters {
+  display: flex; gap: 6px; padding: 7px 15px;
+  border-bottom: 1px solid var(--border);
 }
-.f-chip{
-  font-family:'IBM Plex Mono',monospace;font-size:.58rem;
-  padding:2px 7px;border-radius:3px;
-  background:var(--bg3);border:1px solid var(--border);color:var(--text-2);
+.f-chip {
+  font-size: .62rem; padding: 2px 8px; border-radius: 3px; cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--bg2); border: 1px solid var(--border); color: var(--ink3);
 }
-.f-chip.on{background:var(--gold-s);border-color:var(--gold-b);color:var(--gold-lt);}
+.f-chip.on { background: var(--gold-s); border-color: rgba(217,119,6,.25); color: var(--gold); }
 
-.m-table{width:100%;border-collapse:collapse;}
-.m-table th{
-  padding:6px 14px;text-align:left;
-  font-family:'IBM Plex Mono',monospace;font-size:.57rem;
-  font-weight:500;letter-spacing:.09em;text-transform:uppercase;
-  color:var(--text-3);background:var(--bg3);border-bottom:1px solid var(--border);
+.m-tbl { width: 100%; border-collapse: collapse; }
+.m-tbl th {
+  padding: 6px 14px; text-align: left;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .58rem; font-weight: 500;
+  letter-spacing: .09em; text-transform: uppercase;
+  color: var(--ink4); background: #f9f9f7;
+  border-bottom: 1px solid var(--border);
 }
-.m-table td{
-  padding:8px 14px;border-bottom:1px solid rgba(34,197,94,.04);
-  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
-  color:var(--text-2);white-space:nowrap;
+.m-tbl td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--bg2);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .66rem; color: var(--ink3);
+  white-space: nowrap;
 }
-.m-table tr:hover td{background:rgba(34,197,94,.025);}
-.td-n{color:var(--text)!important;font-weight:500;}
+.m-tbl tr:hover td { background: var(--green-xs); }
+.td-n { color: var(--ink) !important; font-weight: 500; }
 
-.bdg{
-  display:inline-block;padding:2px 7px;border-radius:2px;
-  font-family:'IBM Plex Mono',monospace;font-size:.57rem;font-weight:600;
+.bdg {
+  display: inline-block; padding: 2px 7px; border-radius: 3px;
+  font-family: 'IBM Plex Mono', monospace; font-size: .58rem; font-weight: 600;
 }
-.bdg-ok{background:var(--green-s);color:var(--green);}
-.bdg-pen{background:var(--gold-s);color:var(--gold-lt);}
-.bdg-err{background:var(--red-s);color:var(--red);}
+.bdg-ok  { background: var(--green-xs); color: var(--green); }
+.bdg-pen { background: var(--gold-s);   color: var(--gold); }
+.bdg-err { background: var(--red-s);    color: var(--red); }
 
-.m-foot{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:7px 14px;background:var(--bg3);border-top:1px solid var(--border);
+.m-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 14px; background: #f7f7f5;
+  border-top: 1px solid var(--border);
 }
-.m-foot-count{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--text-3);}
-.m-foot-export{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--green);cursor:pointer;}
+.m-foot-l { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; color: var(--ink4); }
+.m-foot-r { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; color: var(--green); cursor: pointer; font-weight: 500; }
 
-/* Float cards */
+/* Floating alert cards */
 .fc {
-  position:absolute;background:var(--bg2);
-  border:1px solid var(--border);border-radius:var(--r-sm);
-  padding:9px 13px;box-shadow:0 8px 24px rgba(0,0,0,.45);
-  display:flex;align-items:center;gap:9px;
+  position: absolute;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 13px;
+  box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 9px;
 }
-.fc-warn{top:-18px;right:-18px;animation:float 5s ease-in-out infinite .7s;}
-.fc-ok{bottom:18px;left:-20px;animation:float 7s ease-in-out infinite 1.4s;}
-.fc-ico{
-  width:26px;height:26px;border-radius:5px;
-  display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;
-}
-.fc-ico-g{background:var(--green-s);}
-.fc-ico-y{background:var(--gold-s);}
-.fc-top{color:var(--text);font-weight:600;font-size:.72rem;font-family:'IBM Plex Mono',monospace;}
-.fc-bot{color:var(--text-2);font-size:.62rem;margin-top:1px;font-family:'IBM Plex Mono',monospace;}
+.fc-warn { top: -18px; right: -20px; animation: float 5s ease-in-out infinite .6s; }
+.fc-ok   { bottom: 20px; left: -22px; animation: float 7s ease-in-out infinite 1.3s; }
+.fc-ico  { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: .95rem; flex-shrink: 0; }
+.fc-ico-y { background: var(--gold-s); }
+.fc-ico-g { background: var(--green-xs); }
+.fc-t { color: var(--ink); font-weight: 600; font-size: .73rem; }
+.fc-b { color: var(--ink3); font-size: .64rem; margin-top: 1px; font-family: 'IBM Plex Mono', monospace; }
 
-/* ══════════════════════════════════════════════
-   PROBLEMA
-══════════════════════════════════════════════ */
+/* table rows stagger */
+.m-tbl tbody tr {
+  opacity: 0; transform: translateX(-6px);
+  animation: row-in .4s ease forwards;
+}
+@keyframes row-in { to { opacity: 1; transform: translateX(0); } }
+.m-tbl tbody tr:nth-child(1) { animation-delay: .9s; }
+.m-tbl tbody tr:nth-child(2) { animation-delay: 1.05s; }
+.m-tbl tbody tr:nth-child(3) { animation-delay: 1.2s; }
+.m-tbl tbody tr:nth-child(4) { animation-delay: 1.35s; }
+
+/* ═══ TRUST BAR ═══ */
+#trust {
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+}
+.trust-inner {
+  display: flex; align-items: center; justify-content: center;
+  gap: 3rem; flex-wrap: wrap;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .82rem; color: var(--ink3); font-weight: 400;
+}
+.trust-icon { font-size: 1rem; }
+
+/* ═══ PROBLEMA ═══ */
 #problema {
-  padding:100px 0;
-  border-top:1px solid var(--border);
+  padding: 100px 0;
 }
-
 .problema-inner {
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:4rem;align-items:start;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
 }
-
-.pain-list{display:flex;flex-direction:column;gap:12px;margin-top:2rem;}
-
+.pain-list { display: flex; flex-direction: column; gap: 20px; margin-top: 2rem; }
 .pain-item {
-  display:flex;align-items:flex-start;gap:14px;
-  padding:16px 18px;
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-left:2px solid rgba(239,68,68,.45);
-  border-radius:0 var(--r-sm) var(--r-sm) 0;
-  transition:border-left-color .2s,border-color .2s;
+  display: flex; align-items: flex-start; gap: 16px;
 }
-.pain-item:hover{border-left-color:var(--red);border-color:rgba(239,68,68,.18);}
-
-.pain-num{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.62rem;color:var(--text-3);flex-shrink:0;margin-top:2px;
+.pain-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--red-s); border: 1px solid rgba(220,38,38,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; font-weight: 600; color: var(--red);
+  flex-shrink: 0; margin-top: 2px;
 }
-.pain-title{font-weight:600;font-size:.88rem;color:var(--text);margin-bottom:3px;}
-.pain-desc{font-size:.8rem;color:var(--text-2);line-height:1.55;}
+.pain-title { font-weight: 600; font-size: .95rem; color: var(--ink); margin-bottom: 3px; }
+.pain-desc  { font-size: .85rem; color: var(--ink3); line-height: 1.55; }
 
-/* Excel mockup — light */
+/* Excel mockup */
 .excel-wrap {
-  background:#f7f7f5;border-radius:var(--r);overflow:hidden;
-  border:1px solid #ddd;
-  box-shadow:0 24px 64px rgba(0,0,0,.4);
+  background: #fff; border-radius: var(--r);
+  border: 1px solid var(--border); box-shadow: var(--shadow-lg); overflow: hidden;
 }
 .excel-bar {
-  background:#1d6f42;padding:7px 14px;
-  display:flex;align-items:center;gap:8px;
+  background: #1e6b3c; padding: 8px 14px;
+  display: flex; align-items: center; gap: 8px;
 }
-.excel-bar-title{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.68rem;color:#fff;font-weight:500;
+.excel-title { font-family: 'IBM Plex Mono', monospace; font-size: .68rem; color: #fff; font-weight: 500; }
+.excel-toolbar {
+  background: #f0f0ee; padding: 5px 10px;
+  display: flex; gap: 5px; border-bottom: 1px solid #ddd;
 }
-.excel-toolbar{
-  background:#f0f0f0;padding:5px 10px;
-  display:flex;gap:5px;border-bottom:1px solid #ddd;
+.excel-btn {
+  font-family: 'IBM Plex Mono', monospace; font-size: .62rem;
+  padding: 2px 8px; background: #fff; border: 1px solid #ccc;
+  border-radius: 2px; color: #444;
 }
-.excel-tool{
-  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
-  padding:2px 7px;background:#fff;border:1px solid #ccc;border-radius:2px;color:#444;
+.excel-tbl { width: 100%; border-collapse: collapse; }
+.excel-tbl th {
+  background: #e8e8e6; padding: 5px 11px; text-align: left;
+  border: 1px solid #d8d8d5; color: #666;
+  font-family: 'IBM Plex Mono', monospace; font-size: .62rem; font-weight: 600;
 }
-.excel-tbl{width:100%;border-collapse:collapse;}
-.excel-tbl th{
-  background:#e8e8e8;padding:5px 10px;text-align:left;
-  border:1px solid #d0d0d0;color:#666;
-  font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;
+.excel-tbl td {
+  padding: 5px 11px; border: 1px solid #eaeae8;
+  background: #fff; color: #333;
+  font-family: 'IBM Plex Mono', monospace; font-size: .62rem;
 }
-.excel-tbl td{
-  padding:5px 10px;border:1px solid #e0e0e0;
-  background:#fff;color:#333;
-  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+.xl-e { background: #fff0f0 !important; color: #b00 !important; font-weight: 600; }
+.xl-w { background: #fffbe6 !important; color: #8a5f00 !important; font-weight: 600; }
+.excel-foot {
+  background: #b00; padding: 7px 14px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.xl-err{background:#fff0f0!important;color:#b00!important;font-weight:600;}
-.xl-warn{background:#fffbe6!important;color:#925f00!important;font-weight:600;}
-.excel-foot{
-  background:#b00;padding:6px 14px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.excel-foot-t{
-  font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:#fff;font-weight:600;
-}
+.excel-ft { font-family: 'IBM Plex Mono', monospace; font-size: .62rem; color: #fff; font-weight: 600; }
 
-/* ══════════════════════════════════════════════
-   FEATURES
-══════════════════════════════════════════════ */
+/* ═══ FEATURES ═══ */
 #features {
-  padding:100px 0;
-  background:var(--bg2);
-  border-top:1px solid var(--border);
+  padding: 100px 0;
+  background: var(--white);
+  border-top: 1px solid var(--border);
 }
-
-.features-head {
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:3rem;align-items:end;margin-bottom:3.5rem;
+.feat-head {
+  text-align: center; margin-bottom: 4rem;
 }
+.feat-head .sub { margin: .9rem auto 0; text-align: center; }
 
 .feat-grid {
-  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 20px;
 }
 
 .feat-card {
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:var(--r-sm);padding:22px;
-  position:relative;overflow:hidden;
-  transition:border-color .2s,transform .2s;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 28px 26px;
+  transition: box-shadow .2s, transform .2s, border-color .2s;
+  position: relative; overflow: hidden;
 }
-.feat-card::after {
-  content:'';position:absolute;left:0;top:0;bottom:0;
-  width:2px;background:var(--green);opacity:0;
-  transition:opacity .2s;
+.feat-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+  border-color: var(--border2);
 }
-.feat-card:hover{border-color:var(--border2);transform:translateY(-2px);}
-.feat-card:hover::after{opacity:1;}
-.feat-card.hi{
-  border-color:rgba(34,197,94,.2);
-  background:rgba(34,197,94,.03);
+.feat-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--green), var(--green-lt));
+  opacity: 0; transition: opacity .25s;
 }
-.feat-card.hi::after{opacity:.5;}
+.feat-card:hover::before { opacity: 1; }
 
-.feat-num{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.58rem;color:var(--text-3);
-  letter-spacing:.08em;margin-bottom:10px;
+.feat-ico {
+  width: 46px; height: 46px; border-radius: var(--r-sm);
+  background: var(--green-xs); border: 1px solid var(--green-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; margin-bottom: 14px;
 }
-.feat-card.hi .feat-num{color:var(--green);}
-.feat-icon{font-size:1.1rem;margin-bottom:8px;}
-.feat-title{font-weight:600;font-size:.88rem;color:var(--text);margin-bottom:5px;}
-.feat-desc{font-size:.78rem;color:var(--text-2);line-height:1.55;}
+.feat-title { font-weight: 600; font-size: 1rem; color: var(--ink); margin-bottom: 6px; }
+.feat-desc  { font-size: .85rem; color: var(--ink3); line-height: 1.58; }
 
-/* ══════════════════════════════════════════════
-   COMO FUNCIONA
-══════════════════════════════════════════════ */
+/* ═══ COMO FUNCIONA ═══ */
 #como-funciona {
-  padding:100px 0;
-  border-top:1px solid var(--border);
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
 }
+.steps-head { text-align: center; margin-bottom: 4rem; }
+.steps-head .sub { margin: .9rem auto 0; text-align: center; }
 
-.steps-head{text-align:center;margin-bottom:4rem;}
-.steps-head .s-sub{margin:1rem auto 0;text-align:center;}
+.steps-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 2rem; position: relative;
+}
+.steps-line {
+  position: absolute; top: 38px;
+  left: calc(16.666% + 30px); right: calc(16.666% + 30px);
+  height: 1px;
+  background: linear-gradient(90deg, var(--green), rgba(22,163,74,.15));
+  opacity: .5;
+}
+.step-card {
+  text-align: center; padding: 2rem 1.5rem;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r); box-shadow: var(--shadow-sm);
+}
+.step-n {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--green-xs); border: 1.5px solid var(--green-md);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .9rem; font-weight: 600; color: var(--green);
+  margin-bottom: 1.2rem;
+}
+.step-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.15rem; font-weight: 600; color: var(--ink);
+  letter-spacing: -.02em; margin-bottom: .6rem;
+}
+.step-desc { font-size: .85rem; color: var(--ink3); line-height: 1.6; }
 
-.steps-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:2rem;position:relative;
-}
-.steps-line{
-  position:absolute;top:40px;
-  left:calc(16.666% + 32px);right:calc(16.666% + 32px);
-  height:1px;
-  background:linear-gradient(90deg,var(--green),rgba(34,197,94,.15));
-  opacity:.35;
-}
-
-.step-card{
-  text-align:center;padding:2rem 1.5rem;
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--r);
-}
-.step-n{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:50px;height:50px;border-radius:50%;
-  background:var(--green-s);border:1px solid rgba(34,197,94,.22);
-  font-family:'IBM Plex Mono',monospace;font-size:.95rem;font-weight:600;
-  color:var(--green);margin-bottom:1.4rem;
-}
-.step-title{
-  font-family:'Fraunces',Georgia,serif;
-  font-size:1.15rem;font-weight:600;color:var(--text);
-  letter-spacing:-.02em;margin-bottom:.7rem;
-}
-.step-desc{font-size:.82rem;color:var(--text-2);line-height:1.6;}
-
-/* ══════════════════════════════════════════════
-   MOBILE + PERSONALIZACIÓN
-══════════════════════════════════════════════ */
-#mobile-strip {
-  padding:56px 0;
-  background:var(--bg2);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-}
-.strip-inner{
-  display:flex;align-items:center;gap:4rem;flex-wrap:wrap;
-}
-.strip-item{
-  display:flex;align-items:center;gap:16px;
-  flex:1;min-width:240px;
-}
-.strip-ico{
-  width:46px;height:46px;border-radius:var(--r-sm);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.25rem;
-  background:var(--green-s);border:1px solid rgba(34,197,94,.18);flex-shrink:0;
-}
-.strip-title{font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:2px;}
-.strip-desc{font-size:.8rem;color:var(--text-2);line-height:1.5;}
-.strip-divider{width:1px;height:56px;background:var(--border);}
-
-/* ══════════════════════════════════════════════
-   DEMO
-══════════════════════════════════════════════ */
+/* ═══ DEMO ═══ */
 #demo {
-  padding:100px 0;
-  border-top:1px solid var(--border);
+  padding: 100px 0;
+  background: var(--white);
+  border-top: 1px solid var(--border);
 }
-.demo-head{text-align:center;margin-bottom:3rem;}
-.demo-head .s-sub{margin:1rem auto 0;text-align:center;}
+.demo-head { text-align: center; margin-bottom: 3rem; }
+.demo-head .sub { margin: .9rem auto 0; text-align: center; }
 
-.demo-chrome{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--r);overflow:hidden;
-  box-shadow:0 24px 64px rgba(0,0,0,.4);
+.demo-chrome {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-lg);
 }
-.demo-chrome-bar{
-  padding:9px 14px;background:var(--bg3);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px;
+.demo-bar {
+  padding: 9px 14px; background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
 }
-.demo-chrome-dots{display:flex;gap:5px;}
-.demo-chrome-dots span{width:9px;height:9px;border-radius:50%;display:inline-block;}
-.demo-url{
-  flex:1;font-family:'IBM Plex Mono',monospace;font-size:.65rem;
-  color:var(--text-3);background:var(--bg);border:1px solid var(--border);
-  border-radius:3px;padding:3px 10px;
+.demo-bar-dots { display: flex; gap: 5px; }
+.demo-bar-dots span { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.demo-url-bar {
+  flex: 1; font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; color: var(--ink3);
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 3px; padding: 3px 10px;
 }
 
-/* ══════════════════════════════════════════════
-   TESTIMONIOS
-══════════════════════════════════════════════ */
+/* ═══ STRIP ═══ */
+#strip {
+  padding: 64px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, #f0f7f2 0%, var(--bg) 100%);
+}
+.strip-inner {
+  display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;
+}
+.strip-item { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 240px; }
+.strip-ico {
+  width: 50px; height: 50px; border-radius: var(--r-sm);
+  background: var(--green-xs); border: 1px solid var(--green-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.35rem; flex-shrink: 0;
+}
+.strip-title { font-weight: 600; font-size: 1rem; color: var(--ink); margin-bottom: 3px; }
+.strip-desc  { font-size: .83rem; color: var(--ink3); line-height: 1.5; }
+.strip-div   { width: 1px; height: 60px; background: var(--border); }
+
+/* ═══ TESTIMONIOS ═══ */
 #testimonios {
-  padding:100px 0;
-  background:var(--bg2);border-top:1px solid var(--border);
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
 }
-.testi-head{text-align:center;margin-bottom:3.5rem;}
-.testi-head .s-sub{margin:1rem auto 0;text-align:center;}
+.testi-head { text-align: center; margin-bottom: 3.5rem; }
+.testi-head .sub { margin: .9rem auto 0; text-align: center; }
 
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 
-.testi-card{
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:var(--r);padding:26px;
-  transition:border-color .2s;
+.testi-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s, transform .2s;
 }
-.testi-card:hover{border-color:var(--border2);}
+.testi-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
 
-.testi-stars{color:var(--gold-lt);font-size:.75rem;margin-bottom:1rem;letter-spacing:2px;}
-
-.testi-quote{
-  font-family:'Fraunces',Georgia,serif;
-  font-size:.98rem;font-style:italic;
-  line-height:1.65;color:var(--text);margin-bottom:1.4rem;
+.testi-stars { color: #f59e0b; font-size: .78rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.testi-quote {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1rem; font-style: italic;
+  line-height: 1.65; color: var(--ink); margin-bottom: 1.4rem;
 }
-
-.testi-author{display:flex;align-items:center;gap:10px;}
-.testi-av{
-  width:34px;height:34px;border-radius:50%;
-  background:var(--green-s);border:1px solid rgba(34,197,94,.2);
-  display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:.78rem;color:var(--green);
-  font-family:'IBM Plex Mono',monospace;flex-shrink:0;
+.testi-author { display: flex; align-items: center; gap: 10px; }
+.testi-av {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--green-xs); border: 1.5px solid var(--green-md);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .78rem; color: var(--green);
+  font-family: 'IBM Plex Mono', monospace; flex-shrink: 0;
 }
-.testi-name{font-weight:600;font-size:.83rem;color:var(--text);}
-.testi-role{font-size:.72rem;color:var(--text-2);}
+.testi-name { font-weight: 600; font-size: .85rem; color: var(--ink); }
+.testi-role { font-size: .74rem; color: var(--ink3); }
 
-/* ══════════════════════════════════════════════
-   PRICING
-══════════════════════════════════════════════ */
+/* ═══ PRICING ═══ */
 #pricing {
-  padding:100px 0;border-top:1px solid var(--border);
+  padding: 100px 0;
+  background: var(--white);
+  border-top: 1px solid var(--border);
 }
-.pricing-head{text-align:center;margin-bottom:3.5rem;}
-.pricing-head .s-sub{margin:1rem auto 0;text-align:center;}
+.pricing-head { text-align: center; margin-bottom: 3.5rem; }
+.pricing-head .sub { margin: .9rem auto 0; text-align: center; }
 
-.pricing-wrap{max-width:500px;margin:0 auto;}
+.pricing-wrap { max-width: 520px; margin: 0 auto; }
 
-.pricing-card{
-  background:var(--bg2);
-  border:1px solid rgba(34,197,94,.28);
-  border-radius:var(--r-lg);
-  padding:44px 38px;position:relative;
-  box-shadow:0 0 60px rgba(34,197,94,.05);
+.pricing-card {
+  background: var(--bg);
+  border: 1.5px solid var(--green-md);
+  border-radius: var(--r-lg);
+  padding: 48px 40px;
+  position: relative;
+  box-shadow: 0 0 0 4px var(--green-xs), var(--shadow);
 }
-
-.pricing-pill{
-  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
-  background:var(--green);color:#070a08;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.6rem;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;
-  padding:4px 14px;border-radius:3px;white-space:nowrap;
+.pricing-pill {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--green); color: #fff;
+  font-size: .65rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+  padding: 4px 16px; border-radius: 4px; white-space: nowrap;
 }
-
-.pricing-plan{
-  font-family:'IBM Plex Mono',monospace;font-size:.72rem;
-  color:var(--text-2);margin-bottom:.7rem;
-  letter-spacing:.06em;text-transform:uppercase;
+.pricing-plan {
+  font-size: .75rem; font-weight: 500; color: var(--ink3);
+  margin-bottom: .7rem; letter-spacing: .05em; text-transform: uppercase;
 }
-
-.pricing-price{
-  font-family:'Fraunces',Georgia,serif;
-  font-size:3rem;font-weight:700;
-  color:var(--text);letter-spacing:-.04em;line-height:1;
+.pricing-price {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 3.2rem; font-weight: 700; letter-spacing: -.04em;
+  color: var(--ink); line-height: 1;
 }
-.pricing-price-sub{
-  font-size:.82rem;color:var(--text-2);margin-top:6px;
+.pricing-price-sub { font-size: .82rem; color: var(--ink3); margin-top: 6px; }
+.pricing-rule { height: 1px; background: var(--border); margin: 1.8rem 0; }
+.pricing-inc {
+  font-size: .65rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink4); margin-bottom: .9rem;
 }
-
-.pricing-rule{height:1px;background:var(--border);margin:1.8rem 0;}
-
-.pricing-inc-label{
-  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--text-3);margin-bottom:.9rem;
+.pricing-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 2rem; }
+.pricing-list li {
+  display: flex; align-items: flex-start; gap: 9px;
+  font-size: .9rem; color: var(--ink2);
 }
-
-.pricing-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:2rem;}
-.pricing-list li{
-  display:flex;align-items:flex-start;gap:9px;
-  font-size:.88rem;color:var(--text-2);
+.pricing-list li::before {
+  content: '✓'; color: var(--green); font-weight: 700;
+  flex-shrink: 0; margin-top: 1px; font-size: .82rem;
 }
-.pricing-list li::before{
-  content:'✓';color:var(--green);
-  font-family:'IBM Plex Mono',monospace;font-weight:600;
-  flex-shrink:0;margin-top:1px;font-size:.8rem;
-}
+.pricing-cta { width: 100%; justify-content: center; font-size: 1rem; padding: 15px; }
+.pricing-note { text-align: center; font-size: .75rem; color: var(--ink3); margin-top: 1.2rem; }
 
-.pricing-cta{width:100%;justify-content:center;}
-.pricing-note{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--text-3);margin-top:1.2rem;}
-
-/* ══════════════════════════════════════════════
-   CONTACTO
-══════════════════════════════════════════════ */
+/* ═══ CONTACTO ═══ */
 #contacto {
-  padding:100px 0;background:var(--bg2);border-top:1px solid var(--border);
+  padding: 100px 0;
+  background: linear-gradient(180deg, #f0f7f2 0%, var(--bg) 100%);
+  border-top: 1px solid var(--border);
 }
-.cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.cta-left .h2 { font-size: clamp(1.9rem,3.5vw,2.5rem); }
+.cta-g { display: flex; flex-direction: column; gap: 9px; margin-top: 2rem; }
+.cta-g-item {
+  display: flex; align-items: center; gap: 9px;
+  font-size: .88rem; color: var(--ink3);
+}
+.cta-g-item::before { content: '✓'; color: var(--green); font-weight: 700; font-size: .82rem; }
 
-.cta-left .s-title{font-size:clamp(1.8rem,3.5vw,2.4rem);}
-.cta-guarantees{display:flex;flex-direction:column;gap:9px;margin-top:2rem;}
-.cta-guar{
-  display:flex;align-items:center;gap:9px;
-  font-size:.84rem;color:var(--text-2);
+.cf {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 32px;
+  box-shadow: var(--shadow);
 }
-.cta-guar::before{
-  content:'✓';color:var(--green);font-weight:600;
-  font-family:'IBM Plex Mono',monospace;font-size:.78rem;flex-shrink:0;
+.cf-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.3rem; font-weight: 600; color: var(--ink);
+  margin-bottom: 1.4rem; letter-spacing: -.02em;
 }
-
-.cf{
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:var(--r);padding:30px;
+.fg { margin-bottom: .9rem; }
+.fl {
+  display: block; font-size: .68rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink3); margin-bottom: 5px;
 }
-.cf-title{
-  font-family:'Fraunces',Georgia,serif;
-  font-size:1.25rem;font-weight:600;color:var(--text);margin-bottom:1.4rem;
-  letter-spacing:-.02em;
+.fi {
+  width: 100%; background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 10px 13px;
+  font-size: .9rem; font-family: 'IBM Plex Sans', sans-serif;
+  color: var(--ink); outline: none; transition: border-color .2s, box-shadow .2s;
 }
-.fg{margin-bottom:.9rem;}
-.fl{
-  display:block;font-family:'IBM Plex Mono',monospace;
-  font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;
-  color:var(--text-2);margin-bottom:5px;
+.fi:focus { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-xs); }
+.fi::placeholder { color: var(--ink4); }
+select.fi {
+  cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a8c7b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 11px center;
 }
-.fi{
-  width:100%;background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--r-sm);padding:9px 12px;
-  font-size:.875rem;font-family:'IBM Plex Sans',sans-serif;
-  color:var(--text);outline:none;
-  transition:border-color .2s;
-}
-.fi:focus{border-color:rgba(34,197,94,.38);}
-.fi::placeholder{color:var(--text-3);}
-select.fi{cursor:pointer;appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a9480' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 10px center;
-}
-select.fi option{background:var(--bg2);}
-textarea.fi{resize:vertical;min-height:78px;}
-.f-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.f-submit{width:100%;justify-content:center;margin-top:1.1rem;}
-
-.f-success{display:none;text-align:center;padding:2.5rem 1rem;}
-.f-success.show{display:block;}
-.f-suc-icon{font-size:1.8rem;margin-bottom:.6rem;}
-.f-suc-text{
-  font-family:'Fraunces',Georgia,serif;
-  font-size:1.15rem;color:var(--text);
+select.fi option { background: var(--white); }
+textarea.fi { resize: vertical; min-height: 80px; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.f-submit { width: 100%; justify-content: center; margin-top: 1.1rem; padding: 13px; }
+.f-success { display: none; text-align: center; padding: 3rem 1rem; }
+.f-success.show { display: block; }
+.f-suc-ico { font-size: 2rem; color: var(--green); margin-bottom: .6rem; }
+.f-suc-text {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.2rem; color: var(--ink);
 }
 
-/* ══════════════════════════════════════════════
-   FOOTER
-══════════════════════════════════════════════ */
-footer{
-  padding:56px 0 28px;
-  border-top:1px solid var(--border);
+/* ═══ FOOTER ═══ */
+footer {
+  padding: 52px 0 28px;
+  border-top: 1px solid var(--border);
+  background: var(--white);
 }
-.footer-inner{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem;
+.footer-inner {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 2rem; flex-wrap: wrap; margin-bottom: 2.5rem;
 }
-.footer-brand .logo{margin-bottom:.9rem;}
-.footer-tagline{font-size:.8rem;color:var(--text-2);max-width:240px;line-height:1.6;}
+.footer-brand .logo { margin-bottom: .8rem; }
+.footer-tag { font-size: .8rem; color: var(--ink3); max-width: 240px; line-height: 1.6; }
+.footer-links { display: flex; gap: 4rem; flex-wrap: wrap; }
+.footer-col-t {
+  font-size: .65rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink4); margin-bottom: .9rem;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.footer-col a { font-size: .85rem; color: var(--ink3); text-decoration: none; transition: color .2s; }
+.footer-col a:hover { color: var(--green); }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 1.8rem; border-top: 1px solid var(--border);
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy { font-size: .72rem; color: var(--ink4); }
 
-.footer-links{display:flex;gap:4rem;flex-wrap:wrap;}
-.footer-col-title{
-  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--text-3);margin-bottom:.9rem;
+/* ═══ WA FLOAT ═══ */
+.wa-float {
+  position: fixed; bottom: 26px; right: 26px; z-index: 300;
+  display: flex; align-items: center; gap: 9px;
+  background: #25d366; color: #fff;
+  padding: 12px 18px; border-radius: 40px; text-decoration: none;
+  font-weight: 600; font-size: .88rem;
+  box-shadow: 0 6px 24px rgba(37,211,102,.4);
+  transition: transform .2s, box-shadow .2s;
 }
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
-.footer-col a{font-size:.83rem;color:var(--text-2);text-decoration:none;transition:color .2s;}
-.footer-col a:hover{color:var(--text);}
+.wa-float:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(37,211,102,.5); }
 
-.footer-bottom{
-  display:flex;align-items:center;justify-content:space-between;
-  padding-top:1.8rem;border-top:1px solid var(--border);flex-wrap:wrap;gap:1rem;
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 960px) {
+  .hero-inner, .problema-inner, .cta-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-visual { display: none; }
+  .feat-grid { grid-template-columns: 1fr 1fr; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .steps-line { display: none; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .features-head { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .footer-inner { flex-direction: column; }
+  .wa-float .wa-lbl { display: none; }
+  .wa-float { padding: 14px; border-radius: 50%; }
+  .f-row { grid-template-columns: 1fr; }
 }
-.footer-copy{
-  font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--text-3);
-}
-
-/* ── WA FLOAT ── */
-.wa-float{
-  position:fixed;bottom:26px;right:26px;z-index:300;
-  display:flex;align-items:center;gap:9px;
-  background:#25d366;color:#fff;
-  padding:11px 17px;border-radius:40px;text-decoration:none;
-  font-weight:600;font-size:.85rem;
-  box-shadow:0 6px 22px rgba(37,211,102,.38);
-  transition:transform .2s,box-shadow .2s;
-}
-.wa-float:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(37,211,102,.48);}
-
-/* ── RESPONSIVE ── */
-@media(max-width:960px){
-  .hero-inner,.problema-inner,.cta-inner{grid-template-columns:1fr;gap:2.5rem;}
-  .hero-visual{display:none;}
-  .features-head{grid-template-columns:1fr;}
-  .steps-grid{grid-template-columns:1fr;}
-  .steps-line{display:none;}
-  .testi-grid{grid-template-columns:1fr;}
-  .feat-grid{grid-template-columns:1fr 1fr;}
-  .nav-links{display:none;}
-  .footer-inner{flex-direction:column;}
-  .wa-float .wa-lbl{display:none;}
-  .wa-float{padding:13px;border-radius:50%;}
-  .f-row{grid-template-columns:1fr;}
-}
-@media(max-width:600px){
-  .feat-grid{grid-template-columns:1fr;}
-  .hero-stats{gap:1.5rem;flex-wrap:wrap;}
-  .strip-inner{flex-direction:column;gap:2rem;}
-  .strip-divider{display:none;}
+@media (max-width: 600px) {
+  .feat-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+  .strip-inner { flex-direction: column; gap: 2rem; }
+  .strip-div { display: none; }
+  .trust-inner { gap: 1.5rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
+<!-- NAV -->
 <nav id="nav">
   <a href="#" class="logo">
-    <svg width="28" height="31" viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 2L4 9V22C4 31.941 11.16 41.148 20 43C28.84 41.148 36 31.941 36 22V9L20 2Z" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-width="1.5"/>
-      <path d="M13 22L18 27L27 17" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg width="26" height="29" viewBox="0 0 40 44" fill="none">
+      <path d="M20 2L4 9V22C4 31.941 11.16 41.148 20 43C28.84 41.148 36 31.941 36 22V9L20 2Z"
+            fill="rgba(22,163,74,0.1)" stroke="#16a34a" stroke-width="1.5"/>
+      <path d="M13 22L18 27L27 17" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     BBC File
   </a>
@@ -908,23 +820,21 @@ footer{
   <a href="#contacto" class="btn-nav">Solicitar demo →</a>
 </nav>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section id="hero">
   <div class="container">
     <div class="hero-inner">
 
-      <div class="hero-left">
-        <div class="hero-kicker">
-          <span class="kicker-dot"></span>
-          Sistema colombiano · Seguridad Social
+      <div>
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Hecho para Colombia · SS y nómina
         </div>
         <h1 class="hero-title">
-          Deja de gestionar<br>
-          nómina en<br>
-          <em>hojas de Excel.</em>
+          Nómina y seguridad<br>social, sin <em>Excel</em>,<br>sin errores.
         </h1>
-        <p class="hero-desc">
-          BBC File centraliza todo el ciclo de seguridad social colombiana — afiliaciones, aportes, ARL, retiros — en una plataforma diseñada para outsourcing de nómina y consultoras de RRHH.
+        <p class="hero-sub">
+          BBC File centraliza todo el ciclo de SS colombiana — afiliaciones, aportes, ARL, retiros — en una sola plataforma. Diseñado para outsourcing de nómina y consultoras de RRHH.
         </p>
         <div class="hero-actions">
           <a href="#contacto" class="btn-primary">Ver demo en vivo →</a>
@@ -932,16 +842,16 @@ footer{
         </div>
         <div class="hero-stats">
           <div>
-            <div class="stat-num">16</div>
-            <div class="stat-label">Módulos integrados</div>
+            <div class="stat-n" id="s1">16</div>
+            <div class="stat-l">Módulos integrados</div>
           </div>
           <div>
-            <div class="stat-num">$350k</div>
-            <div class="stat-label">COP · mes todo incluido</div>
+            <div class="stat-n" id="s2">$350k</div>
+            <div class="stat-l">COP / mes todo incluido</div>
           </div>
           <div>
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Colombiano</div>
+            <div class="stat-n" id="s3">100%</div>
+            <div class="stat-l">Colombiano</div>
           </div>
         </div>
       </div>
@@ -949,89 +859,49 @@ footer{
       <div class="hero-visual">
         <div class="module-card">
           <div class="m-topbar">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="m-dots">
-                <span class="r"></span><span class="y"></span><span class="g"></span>
-              </div>
-              <span class="m-bar-title">BBC File — Módulo Afiliados</span>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div class="m-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+              <span class="m-url">bbcfile.co/afiliados</span>
             </div>
-            <div class="m-status"><span class="m-status-dot"></span>En línea</div>
+            <div class="m-live"><span class="m-live-dot"></span> En línea</div>
           </div>
-
           <div class="m-head">
-            <span class="m-name">AFILIADOS · JUNIO 2025</span>
+            <span class="m-mod-name">AFILIADOS · JUNIO 2025</span>
             <div class="m-tabs">
-              <span class="m-tab active">Activos</span>
+              <span class="m-tab on">Activos</span>
               <span class="m-tab">Retiros</span>
               <span class="m-tab">Pendientes</span>
             </div>
           </div>
-
           <div class="m-filters">
             <span class="f-chip on">Todos</span>
             <span class="f-chip">EPS</span>
             <span class="f-chip">AFP</span>
             <span class="f-chip">ARL</span>
           </div>
-
-          <table class="m-table">
+          <table class="m-tbl">
             <thead>
-              <tr>
-                <th>Nombre</th><th>Cédula</th><th>Empresa</th><th>EPS</th><th>Estado</th>
-              </tr>
+              <tr><th>Nombre</th><th>Cédula</th><th>Empresa</th><th>EPS</th><th>Estado</th></tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="td-n">Adriana Ospina</td>
-                <td>1.023.456.789</td>
-                <td>OUTSERNOVA</td>
-                <td>Sanitas</td>
-                <td><span class="bdg bdg-ok">Al día</span></td>
-              </tr>
-              <tr>
-                <td class="td-n">Carlos Mejía</td>
-                <td>79.834.512</td>
-                <td>NOMISEG</td>
-                <td>Nueva EPS</td>
-                <td><span class="bdg bdg-pen">Pendiente</span></td>
-              </tr>
-              <tr>
-                <td class="td-n">Sandra Ríos</td>
-                <td>52.712.003</td>
-                <td>OUTSERNOVA</td>
-                <td>Sura</td>
-                <td><span class="bdg bdg-ok">Al día</span></td>
-              </tr>
-              <tr>
-                <td class="td-n">Javier Morales</td>
-                <td>1.012.789.345</td>
-                <td>NOMISEG</td>
-                <td>Compensar</td>
-                <td><span class="bdg bdg-err">Error SS</span></td>
-              </tr>
+              <tr><td class="td-n">Adriana Ospina</td><td>1.023.456.789</td><td>OUTSERNOVA</td><td>Sanitas</td><td><span class="bdg bdg-ok">Al día</span></td></tr>
+              <tr><td class="td-n">Carlos Mejía</td><td>79.834.512</td><td>NOMISEG</td><td>Nueva EPS</td><td><span class="bdg bdg-pen">Pendiente</span></td></tr>
+              <tr><td class="td-n">Sandra Ríos</td><td>52.712.003</td><td>OUTSERNOVA</td><td>Sura</td><td><span class="bdg bdg-ok">Al día</span></td></tr>
+              <tr><td class="td-n">Javier Morales</td><td>1.012.789.345</td><td>NOMISEG</td><td>Compensar</td><td><span class="bdg bdg-err">Error SS</span></td></tr>
             </tbody>
           </table>
-
           <div class="m-foot">
-            <span class="m-foot-count">48 afiliados · 3 pendientes</span>
-            <span class="m-foot-export">↓ Exportar planilla SS</span>
+            <span class="m-foot-l">48 afiliados · 3 pendientes</span>
+            <span class="m-foot-r">↓ Exportar planilla SS</span>
           </div>
         </div>
-
         <div class="fc fc-warn">
           <div class="fc-ico fc-ico-y">⚠️</div>
-          <div>
-            <div class="fc-top">Vence en 3 días</div>
-            <div class="fc-bot">Aportes NOMISEG · Jun</div>
-          </div>
+          <div><div class="fc-t">Vence en 3 días</div><div class="fc-b">Aportes NOMISEG · Jun</div></div>
         </div>
-
         <div class="fc fc-ok">
           <div class="fc-ico fc-ico-g">📋</div>
-          <div>
-            <div class="fc-top">Planilla generada</div>
-            <div class="fc-bot">OUTSERNOVA · PILA lista</div>
-          </div>
+          <div><div class="fc-t">Planilla generada</div><div class="fc-b">OUTSERNOVA · PILA lista</div></div>
         </div>
       </div>
 
@@ -1039,328 +909,268 @@ footer{
   </div>
 </section>
 
-<!-- ═══ PROBLEMA ═══ -->
+<!-- TRUST -->
+<section id="trust">
+  <div class="container">
+    <div class="trust-inner">
+      <div class="trust-item"><span class="trust-icon">🇨🇴</span> Diseñado para el proceso colombiano</div>
+      <div class="trust-item"><span class="trust-icon">🔒</span> Datos seguros en la nube</div>
+      <div class="trust-item"><span class="trust-icon">📱</span> Disponible en móvil (PWA)</div>
+      <div class="trust-item"><span class="trust-icon">💬</span> Soporte por WhatsApp</div>
+      <div class="trust-item"><span class="trust-icon">⚡</span> Sin instalaciones</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
 <section id="problema">
   <div class="container">
     <div class="problema-inner">
-
       <div class="fu">
-        <div class="s-tag">El problema</div>
-        <h2 class="s-title">Excel no es<br>un sistema de nómina.</h2>
+        <div class="tag">El problema</div>
+        <h2 class="h2">Excel no fue hecho<br>para <em>seguridad social.</em></h2>
         <div class="pain-list">
           <div class="pain-item">
-            <span class="pain-num">01</span>
+            <div class="pain-num">01</div>
             <div>
-              <div class="pain-title">Errores en aportes a la PILA</div>
+              <div class="pain-title">Errores en la PILA</div>
               <div class="pain-desc">Un dato mal ingresado genera glosas, devoluciones y multas de la UGPP. Con decenas de afiliados, el error es inevitable.</div>
             </div>
           </div>
           <div class="pain-item">
-            <span class="pain-num">02</span>
+            <div class="pain-num">02</div>
             <div>
               <div class="pain-title">Sin alertas de vencimientos</div>
-              <div class="pain-desc">Seguimiento ARL, novedades, retiros — todo depende de que alguien recuerde revisar el archivo a tiempo.</div>
+              <div class="pain-desc">ARL, novedades, retiros — todo depende de que alguien lo recuerde a tiempo. Un olvido cuesta multas.</div>
             </div>
           </div>
           <div class="pain-item">
-            <span class="pain-num">03</span>
+            <div class="pain-num">03</div>
             <div>
-              <div class="pain-title">Información dispersa y sin trazabilidad</div>
-              <div class="pain-desc">Afiliaciones en un archivo, cobros en otro, historial en correos. Ninguna auditoría es posible.</div>
-            </div>
-          </div>
-          <div class="pain-item">
-            <span class="pain-num">04</span>
-            <div>
-              <div class="pain-title">Sin control de acceso</div>
-              <div class="pain-desc">Cualquier persona con el archivo puede modificar datos sin dejar rastro. Cero seguridad en información sensible.</div>
+              <div class="pain-title">Cero trazabilidad</div>
+              <div class="pain-desc">Cualquier persona puede modificar el archivo sin dejar rastro. Sin auditoría, sin historial, sin control.</div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="fu">
         <div class="excel-wrap">
           <div class="excel-bar">
-            <span style="font-size:.9rem">📊</span>
-            <span class="excel-bar-title">Planilla_SS_Mayo2025.xlsx</span>
+            <span style="font-size:.95rem">📊</span>
+            <span class="excel-title">Planilla_SS_Mayo2025.xlsx</span>
           </div>
           <div class="excel-toolbar">
-            <span class="excel-tool">Archivo</span>
-            <span class="excel-tool">Inicio</span>
-            <span class="excel-tool">Fórmulas</span>
-            <span class="excel-tool">Datos</span>
+            <span class="excel-btn">Archivo</span>
+            <span class="excel-btn">Inicio</span>
+            <span class="excel-btn">Fórmulas</span>
+            <span class="excel-btn">Datos</span>
           </div>
           <table class="excel-tbl">
-            <thead>
-              <tr>
-                <th>Nombre</th><th>Cédula</th><th>Salario</th><th>EPS</th><th>Aporte</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Nombre</th><th>Cédula</th><th>Salario</th><th>EPS</th><th>Aporte</th></tr></thead>
             <tbody>
-              <tr><td>Luis G.</td><td>79.234.501</td><td>$1.800.000</td><td>Sura</td><td class="xl-err">¡REF!</td></tr>
-              <tr><td>María F.</td><td>52.019.344</td><td>$2.100.000</td><td>Sanitas</td><td class="xl-warn">$0</td></tr>
-              <tr><td>Andrés P.</td><td>1.020.344.12</td><td>$1.600.000</td><td class="xl-err">#N/A</td><td class="xl-err">#N/A</td></tr>
-              <tr><td>Claudia M.</td><td>43.012.789</td><td class="xl-warn">Sin dato</td><td>Nueva EPS</td><td class="xl-warn">???</td></tr>
+              <tr><td>Luis G.</td><td>79.234.501</td><td>$1.800.000</td><td>Sura</td><td class="xl-e">¡REF!</td></tr>
+              <tr><td>María F.</td><td>52.019.344</td><td>$2.100.000</td><td>Sanitas</td><td class="xl-w">$0</td></tr>
+              <tr><td>Andrés P.</td><td>1.020.344.12</td><td>$1.600.000</td><td class="xl-e">#N/A</td><td class="xl-e">#N/A</td></tr>
+              <tr><td>Claudia M.</td><td>43.012.789</td><td class="xl-w">Sin dato</td><td>Nueva EPS</td><td class="xl-w">???</td></tr>
             </tbody>
           </table>
           <div class="excel-foot">
-            <span class="excel-foot-t">⚠ 7 errores encontrados</span>
-            <span class="excel-foot-t">Revisar manualmente →</span>
+            <span class="excel-ft">⚠ 7 errores encontrados</span>
+            <span class="excel-ft">Revisar manualmente →</span>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ═══ FEATURES ═══ -->
+<!-- FEATURES -->
 <section id="features">
   <div class="container">
-    <div class="features-head fu">
-      <div>
-        <div class="s-tag">Módulos</div>
-        <h2 class="s-title">Todo lo que necesita<br>una consultora de RRHH.</h2>
-      </div>
-      <p class="s-sub">16 módulos integrados, diseñados para el proceso colombiano de seguridad social — sin add-ons, sin costos ocultos.</p>
+    <div class="feat-head fu">
+      <div class="tag">Módulos</div>
+      <h2 class="h2">Todo lo que necesita<br>una consultora de RRHH.</h2>
+      <p class="sub">16 módulos integrados para el proceso colombiano de seguridad social. Sin add-ons, sin costos extra.</p>
     </div>
-
     <div class="feat-grid">
-      <div class="feat-card hi fu">
-        <div class="feat-num">01</div>
-        <div class="feat-icon">👥</div>
+      <div class="feat-card fu">
+        <div class="feat-ico">👥</div>
         <div class="feat-title">Gestión de Afiliados</div>
         <div class="feat-desc">Alta, baja y novedades por empresa. Control completo de EPS, AFP, ARL y caja de compensación.</div>
       </div>
       <div class="feat-card fu">
-        <div class="feat-num">02</div>
-        <div class="feat-icon">🧮</div>
+        <div class="feat-ico">🧮</div>
         <div class="feat-title">Calculadora SS</div>
         <div class="feat-desc">Cálculo automático de aportes según IBC, novedades y tabla de cotizaciones vigente de MinTrabajo.</div>
       </div>
       <div class="feat-card fu">
-        <div class="feat-num">03</div>
-        <div class="feat-icon">📋</div>
+        <div class="feat-ico">📋</div>
         <div class="feat-title">Planillas PILA</div>
-        <div class="feat-desc">Generación de planillas listas para pago en operadores PILA. Sin digitación manual, sin errores de formato.</div>
+        <div class="feat-desc">Genera planillas listas para pago en operadores PILA. Sin digitación manual, sin errores de formato.</div>
       </div>
       <div class="feat-card fu">
-        <div class="feat-num">04</div>
-        <div class="feat-icon">🦺</div>
+        <div class="feat-ico">🦺</div>
         <div class="feat-title">Seguimiento ARL</div>
         <div class="feat-desc">Control de accidentalidad, incapacidades y reportes ARL por trabajador y empresa afiliada.</div>
       </div>
       <div class="feat-card fu">
-        <div class="feat-num">05</div>
-        <div class="feat-icon">💰</div>
+        <div class="feat-ico">💰</div>
         <div class="feat-title">Facturación y Cobro</div>
-        <div class="feat-desc">Genera facturas por empresa, controla estados de cobro y lleva historial de pagos recibidos.</div>
+        <div class="feat-desc">Genera facturas, controla estados de cobro y lleva historial de pagos por cada empresa cliente.</div>
       </div>
       <div class="feat-card fu">
-        <div class="feat-num">06</div>
-        <div class="feat-icon">🔄</div>
-        <div class="feat-title">Retiros y Novedades</div>
-        <div class="feat-desc">Gestión de retiros, licencias e incapacidades con trazabilidad completa en el historial del empleado.</div>
-      </div>
-      <div class="feat-card fu">
-        <div class="feat-num">07</div>
-        <div class="feat-icon">📊</div>
-        <div class="feat-title">Dashboard Financiero</div>
-        <div class="feat-desc">Resumen de cartera, ingresos por empresa, pendientes de cobro y proyecciones mensuales.</div>
-      </div>
-      <div class="feat-card fu">
-        <div class="feat-num">08</div>
-        <div class="feat-icon">✅</div>
-        <div class="feat-title">Módulo de Tareas</div>
-        <div class="feat-desc">Asignación y seguimiento por usuario. Alertas automáticas de vencimientos críticos y pendientes.</div>
-      </div>
-      <div class="feat-card fu">
-        <div class="feat-num">09</div>
-        <div class="feat-icon">🌐</div>
+        <div class="feat-ico">🌐</div>
         <div class="feat-title">Portal del Cliente</div>
-        <div class="feat-desc">Acceso web para cada empresa. Consulta de afiliados, planillas y reportes sin intermediarios.</div>
+        <div class="feat-desc">Acceso web para cada empresa. Consultan afiliados, planillas y reportes sin necesidad de llamar.</div>
       </div>
-      <div class="feat-card fu">
-        <div class="feat-num">10</div>
-        <div class="feat-icon">📑</div>
-        <div class="feat-title">Listas y Reportes</div>
-        <div class="feat-desc">Generación de listas por período, reportes personalizados y exportación a Excel o PDF.</div>
-      </div>
-      <div class="feat-card fu">
-        <div class="feat-num">11</div>
-        <div class="feat-icon">🔍</div>
-        <div class="feat-title">Auditoría y Actividad</div>
-        <div class="feat-desc">Registro completo de cada acción: quién, cuándo y qué cambió. Trazabilidad total del sistema.</div>
-      </div>
-      <div class="feat-card fu">
-        <div class="feat-num">12</div>
-        <div class="feat-icon">💾</div>
-        <div class="feat-title">Backups Automáticos</div>
-        <div class="feat-desc">Copias de seguridad diarias en la nube. Sus datos siempre protegidos, sin depender del equipo local.</div>
-      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="#contacto" class="btn-ghost" style="font-size:.9rem">Ver los 16 módulos completos →</a>
     </div>
   </div>
 </section>
 
-<!-- ═══ COMO FUNCIONA ═══ -->
+<!-- COMO FUNCIONA -->
 <section id="como-funciona">
   <div class="container">
     <div class="steps-head fu">
-      <div class="s-tag">Proceso</div>
-      <h2 class="s-title">Así funciona con BBC File.</h2>
-      <p class="s-sub">De la implementación a la operación completa en menos de una semana.</p>
+      <div class="tag">Proceso</div>
+      <h2 class="h2">Operando en menos de una semana.</h2>
+      <p class="sub">Sin instalaciones, sin migraciones complicadas.</p>
     </div>
     <div class="steps-grid">
       <div class="steps-line"></div>
       <div class="step-card fu">
         <div class="step-n">01</div>
         <h3 class="step-title">Onboarding guiado</h3>
-        <p class="step-desc">Migramos su información actual al sistema. Configuramos empresas, afiliados y parámetros de SS junto a su equipo.</p>
+        <p class="step-desc">Migramos su información al sistema y configuramos empresas, afiliados y parámetros de SS junto a su equipo.</p>
       </div>
       <div class="step-card fu">
         <div class="step-n">02</div>
-        <h3 class="step-title">Opera desde el primer día</h3>
+        <h3 class="step-title">Opera desde el día 1</h3>
         <p class="step-desc">Gestione afiliados, genere planillas y controle novedades desde cualquier dispositivo, sin instalaciones.</p>
       </div>
       <div class="step-card fu">
         <div class="step-n">03</div>
         <h3 class="step-title">Soporte continuo</h3>
-        <p class="step-desc">Soporte por WhatsApp, actualizaciones incluidas y adaptaciones a cambios normativos de MinTrabajo y UGPP.</p>
+        <p class="step-desc">Soporte por WhatsApp, actualizaciones incluidas y adaptaciones a cambios de MinTrabajo y UGPP.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ MOBILE STRIP ═══ -->
-<section id="mobile-strip">
-  <div class="container">
-    <div class="strip-inner">
-      <div class="strip-item fu">
-        <div class="strip-ico">📱</div>
-        <div>
-          <div class="strip-title">Disponible en su celular</div>
-          <div class="strip-desc">Instale BBC File como app en iPhone o Android. Acceda a afiliados y reportes desde cualquier lugar, sin necesidad de computador.</div>
-        </div>
-      </div>
-      <div class="strip-divider"></div>
-      <div class="strip-item fu">
-        <div class="strip-ico">🛠️</div>
-        <div>
-          <div class="strip-title">Lo adaptamos a sus necesidades</div>
-          <div class="strip-desc">¿Necesita un módulo específico para su proceso? Desarrollamos funcionalidades a medida sin costo adicional de licencia.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ DEMO ═══ -->
+<!-- DEMO -->
 <section id="demo">
   <div class="container">
     <div class="demo-head fu">
-      <div class="s-tag">Demo</div>
-      <h2 class="s-title">Vea el sistema en acción.</h2>
-      <p class="s-sub">Recorrido por los módulos principales con datos de muestra.</p>
+      <div class="tag">Demo</div>
+      <h2 class="h2">Vea el sistema en acción.</h2>
+      <p class="sub">Recorrido por los módulos principales con datos de muestra.</p>
     </div>
-
     <div class="demo-chrome fu">
-      <div class="demo-chrome-bar">
-        <div class="demo-chrome-dots">
-          <span style="background:#ef4444"></span>
-          <span style="background:#f59e0b"></span>
-          <span style="background:#22c55e"></span>
+      <div class="demo-bar">
+        <div class="demo-bar-dots">
+          <span style="background:#fc5f57"></span>
+          <span style="background:#fdbc2c"></span>
+          <span style="background:#2bc840"></span>
         </div>
-        <div class="demo-url">bbcfile.co / demo</div>
+        <div class="demo-url-bar">bbcfile.co / demo</div>
       </div>
-      <iframe src="BBC File Tour.html" style="width:100%;height:620px;border:none;display:block;" scrolling="no" id="tourFrame"></iframe>
+      <iframe src="BBC File Tour.html" style="width:100%;height:620px;border:none;display:block;" scrolling="no"></iframe>
     </div>
-
     <div style="text-align:center;margin-top:2rem;">
-      <a href="https://wa.me/573122249748?text=Hola%2C%20quiero%20una%20demo%20completa%20de%20BBC%20File%20Service" target="_blank" class="btn-primary" style="font-size:.88rem;padding:11px 22px;">
+      <a href="https://wa.me/573122249748?text=Hola%2C%20quiero%20una%20demo%20de%20BBC%20File%20Service" target="_blank" class="btn-primary" style="font-size:.92rem;padding:12px 24px;">
         Pedir demo personalizada →
       </a>
     </div>
   </div>
 </section>
 
-<!-- ═══ TESTIMONIOS ═══ -->
-<section id="testimonios">
+<!-- STRIP -->
+<section id="strip">
   <div class="container">
-    <div class="testi-head fu">
-      <div class="s-tag">Testimonios</div>
-      <h2 class="s-title">Lo que dicen nuestros clientes.</h2>
-      <p class="s-sub">Consultoras de RRHH y outsourcing de nómina en Colombia.</p>
-    </div>
-
-    <div class="testi-grid">
-      <div class="testi-card fu">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"Pasamos de 3 horas generando planillas PILA en Excel a menos de 20 minutos. El módulo de afiliados es exactamente lo que necesitábamos."</p>
-        <div class="testi-author">
-          <div class="testi-av">MP</div>
-          <div>
-            <div class="testi-name">Marcela Pedraza</div>
-            <div class="testi-role">Directora · Outsourcing RRHH</div>
-          </div>
+    <div class="strip-inner">
+      <div class="strip-item fu">
+        <div class="strip-ico">📱</div>
+        <div>
+          <div class="strip-title">En su celular, donde quiera</div>
+          <div class="strip-desc">Instale BBC File como app en iPhone o Android. Acceda a afiliados y reportes sin necesidad de computador.</div>
         </div>
       </div>
-      <div class="testi-card fu">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"Las alertas de vencimientos ARL nos salvaron de varias multas. Ya no dependemos de recordar manualmente las fechas críticas de cada empresa."</p>
-        <div class="testi-author">
-          <div class="testi-av">JR</div>
-          <div>
-            <div class="testi-name">Julián Restrepo</div>
-            <div class="testi-role">Contador · Consultoría SS</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card fu">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"El portal del cliente le da a nuestras empresas acceso directo a sus reportes. Reducimos los correos de consulta a casi cero."</p>
-        <div class="testi-author">
-          <div class="testi-av">LC</div>
-          <div>
-            <div class="testi-name">Laura Camargo</div>
-            <div class="testi-role">Gerente · Nómina Integral</div>
-          </div>
+      <div class="strip-div"></div>
+      <div class="strip-item fu">
+        <div class="strip-ico">🛠️</div>
+        <div>
+          <div class="strip-title">Lo adaptamos a su proceso</div>
+          <div class="strip-desc">¿Necesita un módulo específico? Desarrollamos funcionalidades a medida para su operación de nómina.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PRICING ═══ -->
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="container">
+    <div class="testi-head fu">
+      <div class="tag">Testimonios</div>
+      <h2 class="h2">Lo que dicen nuestros clientes.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fu">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Pasamos de 3 horas generando planillas PILA en Excel a menos de 20 minutos. Exactamente lo que necesitábamos."</p>
+        <div class="testi-author">
+          <div class="testi-av">MP</div>
+          <div><div class="testi-name">Marcela Pedraza</div><div class="testi-role">Directora · Outsourcing RRHH</div></div>
+        </div>
+      </div>
+      <div class="testi-card fu">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Las alertas de ARL nos salvaron de varias multas. Ya no dependemos de recordar manualmente las fechas críticas."</p>
+        <div class="testi-author">
+          <div class="testi-av">JR</div>
+          <div><div class="testi-name">Julián Restrepo</div><div class="testi-role">Contador · Consultoría SS</div></div>
+        </div>
+      </div>
+      <div class="testi-card fu">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"El portal del cliente eliminó casi todos los correos de consulta. Nuestras empresas ven sus reportes solas."</p>
+        <div class="testi-author">
+          <div class="testi-av">LC</div>
+          <div><div class="testi-name">Laura Camargo</div><div class="testi-role">Gerente · Nómina Integral</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
 <section id="pricing">
   <div class="container">
     <div class="pricing-head fu">
-      <div class="s-tag">Precio</div>
-      <h2 class="s-title">Un precio.<br><em>Todo incluido.</em></h2>
-      <p class="s-sub">Sin módulos de pago adicional, sin licencias por usuario, sin sorpresas al final del mes.</p>
+      <div class="tag">Precio</div>
+      <h2 class="h2">Un precio. <em>Todo incluido.</em></h2>
+      <p class="sub">Sin módulos de pago adicional. Sin licencias por usuario. Sin sorpresas.</p>
     </div>
-
     <div class="pricing-wrap fu">
       <div class="pricing-card">
         <div class="pricing-pill">Plan completo</div>
         <div class="pricing-plan">Acceso total al sistema</div>
         <div class="pricing-price">$350.000</div>
         <div class="pricing-price-sub">COP / mes · IVA no incluido</div>
-
         <div class="pricing-rule"></div>
-
-        <div class="pricing-inc-label">Incluye</div>
+        <div class="pricing-inc">Incluye</div>
         <ul class="pricing-list">
           <li>16 módulos activos sin restricciones</li>
           <li>Usuarios ilimitados en su equipo</li>
-          <li>Portal de acceso para empresas clientes</li>
-          <li>App móvil (PWA) para iOS y Android</li>
-          <li>Backups automáticos diarios en la nube</li>
-          <li>Soporte por WhatsApp en horario laboral</li>
+          <li>Portal de acceso para clientes</li>
+          <li>App móvil (PWA) iOS y Android</li>
+          <li>Backups automáticos en la nube</li>
+          <li>Soporte WhatsApp en horario laboral</li>
           <li>Actualizaciones normativas incluidas</li>
-          <li>Onboarding y migración de datos sin costo</li>
+          <li>Onboarding y migración sin costo</li>
         </ul>
-
         <a href="#contacto" class="btn-primary pricing-cta">Comenzar ahora →</a>
         <div class="pricing-note">Sin permanencia mínima · Cancele cuando quiera</div>
       </div>
@@ -1368,63 +1178,44 @@ footer{
   </div>
 </section>
 
-<!-- ═══ CONTACTO ═══ -->
+<!-- CONTACTO -->
 <section id="contacto">
   <div class="container">
     <div class="cta-inner">
       <div class="cta-left fu">
-        <div class="s-tag">Contacto</div>
-        <h2 class="s-title">¿Listo para dejar<br>atrás el Excel?</h2>
-        <p class="s-sub">Le mostramos BBC File con sus propios datos en una demo de 20 minutos. Sin compromiso.</p>
-        <div class="cta-guarantees">
-          <div class="cta-guar">Demo personalizada sin costo</div>
-          <div class="cta-guar">Migración de datos incluida</div>
-          <div class="cta-guar">Sin permanencia mínima</div>
-          <div class="cta-guar">Soporte en español, horario colombiano</div>
+        <div class="tag">Contacto</div>
+        <h2 class="h2">¿Listo para dejar<br>atrás el <em>Excel?</em></h2>
+        <p class="sub">Le mostramos BBC File con sus propios datos en 20 minutos. Sin compromiso.</p>
+        <div class="cta-g">
+          <div class="cta-g-item">Demo personalizada sin costo</div>
+          <div class="cta-g-item">Migración de datos incluida</div>
+          <div class="cta-g-item">Sin permanencia mínima</div>
+          <div class="cta-g-item">Soporte en español, horario colombiano</div>
         </div>
       </div>
-
       <div class="fu">
         <div class="cf" id="contactForm">
           <div class="cf-title">Solicitar demo gratis</div>
-
           <div class="f-row">
-            <div class="fg">
-              <label class="fl">Nombre</label>
-              <input type="text" class="fi" placeholder="Su nombre">
-            </div>
-            <div class="fg">
-              <label class="fl">Empresa</label>
-              <input type="text" class="fi" placeholder="Nombre de la empresa">
-            </div>
+            <div class="fg"><label class="fl">Nombre</label><input type="text" class="fi" placeholder="Su nombre"></div>
+            <div class="fg"><label class="fl">Empresa</label><input type="text" class="fi" placeholder="Nombre empresa"></div>
           </div>
-
-          <div class="fg">
-            <label class="fl">WhatsApp</label>
-            <input type="tel" class="fi" placeholder="300 123 4567" id="waInput">
-          </div>
-
+          <div class="fg"><label class="fl">WhatsApp</label><input type="tel" class="fi" placeholder="300 123 4567" id="waInput"></div>
           <div class="fg">
             <label class="fl">¿Cuántos afiliados manejan?</label>
             <select class="fi">
-              <option value="">Seleccionar rango...</option>
+              <option value="">Seleccionar...</option>
               <option>Menos de 50</option>
               <option>50 - 200</option>
               <option>200 - 500</option>
               <option>Más de 500</option>
             </select>
           </div>
-
-          <div class="fg">
-            <label class="fl">Mensaje (opcional)</label>
-            <textarea class="fi" placeholder="Cuéntenos sobre su proceso actual..."></textarea>
-          </div>
-
+          <div class="fg"><label class="fl">Mensaje (opcional)</label><textarea class="fi" placeholder="Cuéntenos sobre su proceso actual..."></textarea></div>
           <button class="btn-primary f-submit" onclick="submitForm(event)">Enviar solicitud →</button>
         </div>
-
         <div class="f-success" id="formSuccess">
-          <div class="f-suc-icon">✓</div>
+          <div class="f-suc-ico">✓</div>
           <div class="f-suc-text">¡Recibido! Le contactamos en menos de 24 horas.</div>
         </div>
       </div>
@@ -1432,23 +1223,24 @@ footer{
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
+<!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
         <a href="#" class="logo">
-          <svg width="26" height="29" viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 2L4 9V22C4 31.941 11.16 41.148 20 43C28.84 41.148 36 31.941 36 22V9L20 2Z" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-width="1.5"/>
-            <path d="M13 22L18 27L27 17" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg width="24" height="27" viewBox="0 0 40 44" fill="none">
+            <path d="M20 2L4 9V22C4 31.941 11.16 41.148 20 43C28.84 41.148 36 31.941 36 22V9L20 2Z"
+                  fill="rgba(22,163,74,0.1)" stroke="#16a34a" stroke-width="1.5"/>
+            <path d="M13 22L18 27L27 17" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           BBC File
         </a>
-        <p class="footer-tagline">Sistema de gestión de personal y seguridad social colombiana.</p>
+        <p class="footer-tag">Sistema de gestión de personal y seguridad social colombiana.</p>
       </div>
       <div class="footer-links">
         <div class="footer-col">
-          <div class="footer-col-title">Producto</div>
+          <div class="footer-col-t">Producto</div>
           <ul>
             <li><a href="#features">Módulos</a></li>
             <li><a href="#demo">Demo</a></li>
@@ -1456,7 +1248,7 @@ footer{
           </ul>
         </div>
         <div class="footer-col">
-          <div class="footer-col-title">Contacto</div>
+          <div class="footer-col-t">Contacto</div>
           <ul>
             <li><a href="#contacto">Formulario</a></li>
             <li><a href="https://wa.me/573122249748" target="_blank">WhatsApp</a></li>
@@ -1471,83 +1263,64 @@ footer{
   </div>
 </footer>
 
-<!-- ═══ WHATSAPP FLOAT ═══ -->
-<a href="https://wa.me/573122249748?text=Hola%2C%20quiero%20una%20demo%20de%20BBC%20File%20Service" target="_blank" class="wa-float" id="waFloat">
-  <svg width="19" height="19" viewBox="0 0 24 24" fill="white">
+<!-- WA FLOAT -->
+<a href="https://wa.me/573122249748?text=Hola%2C%20quiero%20una%20demo%20de%20BBC%20File%20Service" target="_blank" class="wa-float">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
   <span class="wa-lbl">WhatsApp</span>
 </a>
 
 <script>
-// ── Nav scroll ──
+// Nav scroll
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
 
-// ── Fade-up scroll observer ──
+// Scroll fade-up
 const obs = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
     if (e.isIntersecting) {
-      // Feature cards get stagger from CSS transition-delay; others use setTimeout
-      const isFeatureCard = e.target.closest('.feat-grid');
-      const delay = isFeatureCard ? 0 : i * 65;
-      setTimeout(() => e.target.classList.add('vis'), delay);
+      setTimeout(() => e.target.classList.add('vis'), i * 65);
       obs.unobserve(e.target);
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 document.querySelectorAll('.fu').forEach(el => obs.observe(el));
 
-// ── Animated counters ──
-function animateCounter(el, from, to, suffix, prefix, duration) {
-  const start = performance.now();
-  function tick(now) {
-    const p = Math.min((now - start) / duration, 1);
-    const ease = 1 - Math.pow(1 - p, 3);
-    const val = Math.round(from + (to - from) * ease);
-    el.textContent = prefix + val + suffix;
-    if (p < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
-
-const statEls = document.querySelectorAll('.stat-num');
-const statDefs = [
-  { prefix:'',  val:16,  suffix:''  },
-  { prefix:'$', val:350, suffix:'k' },
-  { prefix:'',  val:100, suffix:'%' },
-];
-
-const statsSection = document.querySelector('.hero-stats');
-let statsDone = false;
-const statsObs = new IntersectionObserver(([entry]) => {
-  if (entry.isIntersecting && !statsDone) {
-    statsDone = true;
-    statDefs.forEach((d, i) => {
-      const el = statEls[i];
-      if (!el) return;
-      setTimeout(() => animateCounter(el, 0, d.val, d.suffix, d.prefix, 1100), i * 160 + 600);
-    });
-    statsObs.disconnect();
-  }
-}, { threshold: 0.5 });
-if (statsSection) statsObs.observe(statsSection);
-
-// ── Feature cards individual stagger via JS as well ──
+// Feature cards stagger
 const featGrid = document.querySelector('.feat-grid');
 if (featGrid) {
-  const featObs = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('.feat-card').forEach((card, i) => {
-        setTimeout(() => card.classList.add('vis'), i * 55);
-      });
-      featObs.disconnect();
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.feat-card').forEach((c, i) =>
+        setTimeout(() => c.classList.add('vis'), i * 70));
     }
-  }, { threshold: 0.08 });
-  featObs.observe(featGrid);
+  }, { threshold: 0.08 }).observe(featGrid);
 }
 
-// ── Form ──
+// Stat counters
+function counter(el, to, prefix, suffix, dur) {
+  const t0 = performance.now();
+  const tick = (now) => {
+    const p = Math.min((now - t0) / dur, 1);
+    const v = Math.round((1 - Math.pow(1-p, 3)) * to);
+    el.textContent = prefix + v + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+const statSection = document.querySelector('.hero-stats');
+let counted = false;
+new IntersectionObserver(([e]) => {
+  if (e.isIntersecting && !counted) {
+    counted = true;
+    setTimeout(() => counter(document.getElementById('s1'), 16,   '',  '',  1100), 580);
+    setTimeout(() => counter(document.getElementById('s2'), 350,  '$', 'k', 1100), 740);
+    setTimeout(() => counter(document.getElementById('s3'), 100,  '',  '%', 1100), 900);
+  }
+}, { threshold: 0.5 }).observe(statSection);
+
+// Form
 function submitForm(e) {
   e.preventDefault();
   const wa = document.getElementById('waInput').value.trim().replace(/\D/g,'');
