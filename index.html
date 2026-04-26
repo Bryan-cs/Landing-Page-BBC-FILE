@@ -1008,6 +1008,7 @@ footer {
   .testi-grid { grid-template-columns: 1fr; }
   .features-head { grid-template-columns: 1fr; }
   .nav-links { display: none; }
+  #themeLabel { display: none; }
   .footer-inner { flex-direction: column; }
   .wa-float .wa-lbl { display: none; }
   .wa-float { padding: 14px; border-radius: 50%; }
@@ -1041,12 +1042,15 @@ footer {
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:.75rem;">
-    <button id="themeToggle" aria-label="Cambiar tema" title="Modo oscuro / claro" style="
+    <button id="themeToggle" aria-label="Cambiar tema" style="
+      display:flex;align-items:center;gap:6px;
       background:none;border:1px solid var(--border2);
-      border-radius:var(--r-sm);padding:7px 9px;cursor:pointer;
-      color:var(--ink3);font-size:.95rem;line-height:1;
+      border-radius:var(--r-sm);padding:6px 11px;cursor:pointer;
+      color:var(--ink3);font-size:.78rem;line-height:1;
+      font-family:'IBM Plex Sans',sans-serif;font-weight:500;
       transition:border-color .2s,background .2s,color .2s;
-    ">🌙</button>
+      white-space:nowrap;
+    "><span id="themeIcon">🌙</span><span id="themeLabel" style="letter-spacing:-.01em">Modo oscuro</span></button>
     <a href="#contacto" class="btn-nav">Solicitar demo →</a>
   </div>
 </nav>
@@ -1506,8 +1510,6 @@ footer {
 // ── Theme toggle ──
 const root = document.documentElement;
 const toggleBtn = document.getElementById('themeToggle');
-const ICONS = { light: '🌙', dark: '☀️' };
-
 function getSystemTheme() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
@@ -1515,8 +1517,8 @@ function getSystemTheme() {
 function applyTheme(theme) {
   root.setAttribute('data-theme', theme);
   localStorage.setItem('bbc-theme', theme);
-  toggleBtn.textContent = ICONS[theme];
-  toggleBtn.title = theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+  document.getElementById('themeIcon').textContent  = theme === 'dark' ? '☀️' : '🌙';
+  document.getElementById('themeLabel').textContent = theme === 'dark' ? 'Modo claro' : 'Modo oscuro';
 }
 
 // Init: saved preference → system → default light
