@@ -795,6 +795,13 @@ section { position: relative; }
   border-radius: 3px; padding: 3px 10px;
 }
 
+.demo-frame {
+  height: 620px;
+}
+@media (max-width: 960px) { .demo-frame { height: 480px; } }
+@media (max-width: 600px) { .demo-frame { height: 360px; } }
+@media (max-width: 400px) { .demo-frame { height: 280px; } }
+
 /* ═══ STRIP ═══ */
 #strip {
   padding: 64px 0;
@@ -1067,8 +1074,8 @@ footer {
   .wa-float .wa-lbl { display: none; }
   .wa-float { padding: 14px; border-radius: 50%; }
   .f-row { grid-template-columns: 1fr; }
-  #demo iframe { height: 480px; }
 }
+
 
 /* ── MOBILE ── */
 @media (max-width: 600px) {
@@ -1079,7 +1086,6 @@ footer {
   .strip-div { display: none; }
   .trust-inner { gap: 1.2rem; flex-direction: column; align-items: flex-start; }
   .pricing-card { padding: 36px 24px; }
-  #demo iframe { height: 380px; }
   .h2 { font-size: clamp(1.6rem, 6vw, 2rem); }
   .hero-title { font-size: clamp(2.2rem, 8vw, 3rem); }
   .footer-links { gap: 2rem; }
@@ -1098,7 +1104,6 @@ footer {
   .pricing-price { font-size: 2.4rem; }
   .cf { padding: 22px 16px; }
   section { padding-top: 72px; padding-bottom: 72px; }
-  #demo iframe { height: 320px; }
   .wa-float { bottom: 16px; right: 16px; }
 }
 </style>
@@ -1403,7 +1408,7 @@ footer {
         </div>
         <div class="demo-url-bar">bbcfile.co / demo</div>
       </div>
-      <iframe src="pages/tour.html" style="width:100%;height:620px;border:none;display:block;" scrolling="no"></iframe>
+      <iframe src="pages/tour.html" class="demo-frame" style="width:100%;border:none;display:block;" scrolling="auto"></iframe>
     </div>
     <div style="text-align:center;margin-top:2rem;">
       <a href="https://wa.me/573122249748?text=Hola%2C%20quiero%20una%20demo%20de%20BBC%20File%20Service" target="_blank" class="btn-primary" style="font-size:.92rem;padding:12px 24px;">
