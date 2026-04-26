@@ -57,16 +57,22 @@ BBC File es una plataforma web diseñada para **outsourcing de nómina y consult
 
 ---
 
-## Archivos
+## Estructura
 
 ```
 /
-├── index.html          # Landing page principal
-├── BBC File Tour.html  # Product tour interactivo (embebido en iframe)
-├── logo.html           # Opciones de logo (referencia de diseño)
-├── robots.txt          # Configuración para crawlers
-├── sitemap.xml         # Mapa del sitio para Google
-└── .gitignore
+├── index.html              # Landing page principal
+├── robots.txt              # Configuración para crawlers
+├── sitemap.xml             # Mapa del sitio para Google
+├── README.md
+├── .gitignore
+├── assets/
+│   ├── img/                # og-image.png, favicon, logo, screenshots
+│   ├── css/                # Estilos externos (futuro)
+│   └── js/                 # Scripts externos (futuro)
+└── pages/
+    ├── tour.html           # Product tour interactivo (embebido en iframe)
+    └── logo.html           # Opciones de logo (referencia de diseño)
 ```
 
 ---
