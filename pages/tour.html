@@ -1285,6 +1285,25 @@ document.getElementById('playBtn').addEventListener('click', () => {
 document.getElementById('screenName').textContent = scenes[0].name;
 document.getElementById('browserUrl').textContent = scenes[0].url;
 resetTimer();
+
+// Scale tour para móvil
+function scaleTour() {
+  const wrap = document.querySelector('.tour-wrap');
+  if (!wrap) return;
+  const naturalW = 1000;
+  const available = document.body.clientWidth - 48; // 24px padding cada lado
+  if (available < naturalW) {
+    const ratio = available / naturalW;
+    wrap.style.transform = `scale(${ratio})`;
+    wrap.style.transformOrigin = 'top center';
+    wrap.style.marginBottom = `-${Math.round(wrap.offsetHeight * (1 - ratio))}px`;
+  } else {
+    wrap.style.transform = '';
+    wrap.style.marginBottom = '';
+  }
+}
+scaleTour();
+window.addEventListener('resize', scaleTour);
 </script>
 </body>
 </html>
