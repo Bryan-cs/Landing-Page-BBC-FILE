@@ -189,9 +189,72 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.05);
   --shadow:    0 2px 8px rgba(0,0,0,.07), 0 12px 32px rgba(0,0,0,.08);
   --shadow-lg: 0 4px 16px rgba(0,0,0,.08), 0 24px 64px rgba(0,0,0,.12);
+  --nav-bg:   rgba(250,250,248,0.9);
+  --hero-grad-from: #f0f7f2;
+  --strip-from: #f0f7f2;
   --r:    12px;
   --r-sm:  6px;
   --r-lg: 20px;
+}
+
+/* ── DARK MODE ── */
+[data-theme="dark"] {
+  --bg:       #080c09;
+  --bg2:      #0d130e;
+  --bg3:      #121a13;
+  --white:    #0f1510;
+  --green:    #22c55e;
+  --green-lt: #4ade80;
+  --green-xs: rgba(34,197,94,0.08);
+  --green-sm: rgba(34,197,94,0.15);
+  --green-md: rgba(34,197,94,0.28);
+  --ink:      #e8ebe8;
+  --ink2:     #a8b8a9;
+  --ink3:     #6a7d6b;
+  --ink4:     #374a38;
+  --border:   rgba(255,255,255,0.08);
+  --border2:  rgba(255,255,255,0.14);
+  --red:      #f87171;
+  --red-s:    rgba(248,113,113,0.1);
+  --gold:     #fbbf24;
+  --gold-s:   rgba(251,191,36,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  --shadow:    0 2px 8px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.4);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,.5), 0 24px 64px rgba(0,0,0,.5);
+  --nav-bg:   rgba(8,12,9,0.92);
+  --hero-grad-from: #0d1a0f;
+  --strip-from: #0d1a0f;
+}
+
+/* System preference fallback */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:       #080c09;
+    --bg2:      #0d130e;
+    --bg3:      #121a13;
+    --white:    #0f1510;
+    --green:    #22c55e;
+    --green-lt: #4ade80;
+    --green-xs: rgba(34,197,94,0.08);
+    --green-sm: rgba(34,197,94,0.15);
+    --green-md: rgba(34,197,94,0.28);
+    --ink:      #e8ebe8;
+    --ink2:     #a8b8a9;
+    --ink3:     #6a7d6b;
+    --ink4:     #374a38;
+    --border:   rgba(255,255,255,0.08);
+    --border2:  rgba(255,255,255,0.14);
+    --red:      #f87171;
+    --red-s:    rgba(248,113,113,0.1);
+    --gold:     #fbbf24;
+    --gold-s:   rgba(251,191,36,0.1);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+    --shadow:    0 2px 8px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.4);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,.5), 0 24px 64px rgba(0,0,0,.5);
+    --nav-bg:   rgba(8,12,9,0.92);
+    --hero-grad-from: #0d1a0f;
+    --strip-from: #0d1a0f;
+  }
 }
 
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -204,6 +267,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background .3s ease, color .3s ease;
 }
 
 /* ═══ NAV ═══ */
@@ -212,7 +276,7 @@ nav {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 clamp(1.5rem, 5vw, 4rem);
   height: 62px;
-  background: rgba(250,250,248,0.88);
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   transition: box-shadow .3s;
@@ -350,7 +414,7 @@ section { position: relative; }
 /* ═══ HERO ═══ */
 #hero {
   padding: 120px 0 80px;
-  background: linear-gradient(180deg, #f0f7f2 0%, var(--bg) 60%);
+  background: linear-gradient(180deg, var(--hero-grad-from) 0%, var(--bg) 60%);
   overflow: hidden;
 }
 
@@ -736,7 +800,7 @@ section { position: relative; }
   padding: 64px 0;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(135deg, #f0f7f2 0%, var(--bg) 100%);
+  background: linear-gradient(135deg, var(--strip-from) 0%, var(--bg) 100%);
 }
 .strip-inner {
   display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;
@@ -842,7 +906,7 @@ section { position: relative; }
 /* ═══ CONTACTO ═══ */
 #contacto {
   padding: 100px 0;
-  background: linear-gradient(180deg, #f0f7f2 0%, var(--bg) 100%);
+  background: linear-gradient(180deg, var(--hero-grad-from) 0%, var(--bg) 100%);
   border-top: 1px solid var(--border);
 }
 .cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
@@ -976,7 +1040,15 @@ footer {
     <li><a href="#pricing">Precio</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
-  <a href="#contacto" class="btn-nav">Solicitar demo →</a>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <button id="themeToggle" aria-label="Cambiar tema" title="Modo oscuro / claro" style="
+      background:none;border:1px solid var(--border2);
+      border-radius:var(--r-sm);padding:7px 9px;cursor:pointer;
+      color:var(--ink3);font-size:.95rem;line-height:1;
+      transition:border-color .2s,background .2s,color .2s;
+    ">🌙</button>
+    <a href="#contacto" class="btn-nav">Solicitar demo →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1431,7 +1503,32 @@ footer {
 </a>
 
 <script>
-// Nav scroll
+// ── Theme toggle ──
+const root = document.documentElement;
+const toggleBtn = document.getElementById('themeToggle');
+const ICONS = { light: '🌙', dark: '☀️' };
+
+function getSystemTheme() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+  root.setAttribute('data-theme', theme);
+  localStorage.setItem('bbc-theme', theme);
+  toggleBtn.textContent = ICONS[theme];
+  toggleBtn.title = theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+}
+
+// Init: saved preference → system → default light
+const saved = localStorage.getItem('bbc-theme');
+applyTheme(saved || getSystemTheme());
+
+toggleBtn.addEventListener('click', () => {
+  const current = root.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+// ── Nav scroll ──
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
 
