@@ -795,12 +795,33 @@ section { position: relative; }
   border-radius: 3px; padding: 3px 10px;
 }
 
-.demo-frame {
-  height: 620px;
+.demo-frame { height: 620px; }
+.demo-mobile-only { display: none; }
+.demo-mobile-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 48px 32px;
+  text-align: center;
+  background: var(--bg2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
-@media (max-width: 960px) { .demo-frame { height: 480px; } }
-@media (max-width: 600px) { .demo-frame { height: 360px; } }
-@media (max-width: 400px) { .demo-frame { height: 280px; } }
+.demo-mobile-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  font-size: 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.demo-mobile-txt { color: var(--ink2); font-size: .95rem; line-height: 1.6; }
+
+@media (max-width: 768px) {
+  .demo-desktop-only { display: none; }
+  .demo-mobile-only { display: block; }
+}
 
 /* ═══ STRIP ═══ */
 #strip {
@@ -1399,7 +1420,8 @@ footer {
       <h2 class="h2">Vea el sistema en acción.</h2>
       <p class="sub">Recorrido por los módulos principales con datos de muestra.</p>
     </div>
-    <div class="demo-chrome fu">
+    <!-- Desktop: iframe tour -->
+    <div class="demo-chrome fu demo-desktop-only">
       <div class="demo-bar">
         <div class="demo-bar-dots">
           <span style="background:#fc5f57"></span>
@@ -1410,6 +1432,18 @@ footer {
       </div>
       <iframe src="pages/tour.html" class="demo-frame" style="width:100%;border:none;display:block;" scrolling="auto"></iframe>
     </div>
+
+    <!-- Móvil: botón pantalla completa -->
+    <div class="demo-mobile-only fu">
+      <div class="demo-mobile-card">
+        <div class="demo-mobile-icon">▶</div>
+        <p class="demo-mobile-txt">El tour interactivo está optimizado para pantalla grande.<br>Ábrelo en pantalla completa para la mejor experiencia.</p>
+        <a href="pages/tour.html" target="_blank" class="btn-primary" style="font-size:1rem;padding:14px 28px;">
+          Ver demo en pantalla completa →
+        </a>
+      </div>
+    </div>
+
     <div style="text-align:center;margin-top:2rem;">
       <a href="https://wa.me/573122249748?text=Hola%2C%20quiero%20una%20demo%20de%20BBC%20File%20Service" target="_blank" class="btn-primary" style="font-size:.92rem;padding:12px 24px;">
         Pedir demo personalizada →
