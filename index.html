@@ -1617,6 +1617,10 @@ function applyTheme(theme) {
 const saved = localStorage.getItem('bbc-theme');
 applyTheme(saved || getSystemTheme());
 
+toggleBtn.addEventListener('click', () => {
+  const current = root.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+});
 
 // ── Nav scroll ──
 const nav = document.getElementById('nav');
