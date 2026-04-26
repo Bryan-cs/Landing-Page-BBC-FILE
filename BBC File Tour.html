@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BBC File Service — Product Tour</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --app-bg: #eef0f8;
+  --purple: #6366f1;
+  --purple-dark: #4f46e5;
+  --orange: #f59e0b;
+  --green: #22c55e;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --text: #1e293b;
+  --muted: #64748b;
+  --faint: #94a3b8;
+  --border: #e2e8f0;
+  --white: #ffffff;
+  --card: #ffffff;
+}
+
+body {
+  background: #0f0f1a;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+/* ── TOUR WRAPPER ── */
+.tour-wrap {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.tour-label {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.tour-label-tag {
+  display: inline-block;
+  background: rgba(107,111,245,0.12);
+  border: 1px solid rgba(107,111,245,0.25);
+  color: #8b8ff5;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+.tour-label-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #e8e8f0;
+  letter-spacing: -0.03em;
+}
+.tour-label-sub {
+  font-size: 0.85rem;
+  color: #555570;
+  margin-top: 4px;
+}
+
+/* ── BROWSER FRAME ── */
+.browser {
+  background: #1e1e2e;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #161622;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.browser-dots { display: flex; gap: 6px; }
+.browser-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+.browser-url {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  color: #666688;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── APP VIEWPORT ── */
+.app-viewport {
+  height: 520px;
+  position: relative;
+  overflow: hidden;
+  background: var(--app-bg);
+}
+
+/* ── SCENES ── */
+.scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  overflow: hidden;
+}
+.scene.active {
+  opacity: 1;
+}
+
+/* ── PROGRESS BAR ── */
+.progress-wrap {
+  margin-top: 16px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+.prog-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.prog-dot.active { background: #6366f1; width: 24px; border-radius: 4px; }
+
+.screen-name {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: #44445a;
+  font-weight: 500;
+  height: 20px;
+  transition: opacity 0.3s;
+}
+
+/* ── CONTROLS ── */
+.controls {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  margin-top: 14px;
+}
+.ctrl-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #888;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+.ctrl-btn:hover { background: rgba(255,255,255,0.1); color: #bbb; }
+.ctrl-btn.primary {
+  background: rgba(99,102,241,0.15);
+  border-color: rgba(99,102,241,0.3);
+  color: #8b8ff5;
+}
+.ctrl-btn.primary:hover { background: rgba(99,102,241,0.25); color: #a0a3f8; }
+
+/* ══════════════════════════════════════════
+   SCENE 1 — LOGIN
+══════════════════════════════════════════ */
+.scene-login {
+  display: grid;
+  grid-template-columns: 42% 58%;
+}
+
+.login-left {
+  background: #111827;
+  padding: 36px 28px;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+}
+.login-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.02) 28px, rgba(255,255,255,0.02) 29px),
+                    repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(255,255,255,0.02) 28px, rgba(255,255,255,0.02) 29px);
+}
+
+.login-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.5);
+  font-size: 0.65rem; font-weight: 600;
+  padding: 4px 10px; border-radius: 100px;
+  width: fit-content; margin-bottom: 24px;
+  position: relative; z-index: 1;
+}
+.login-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; }
+
+.login-logo {
+  font-size: 2.8rem; font-weight: 900; color: white; letter-spacing: -0.04em; line-height: 1;
+  position: relative; z-index: 1;
+}
+.login-logo span { display: block; }
+
+.login-tagline {
+  font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 12px;
+  position: relative; z-index: 1; line-height: 1.5;
+}
+
+.login-features {
+  margin-top: auto; display: flex; flex-direction: column; gap: 8px;
+  position: relative; z-index: 1;
+}
+.login-feature {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.68rem; color: rgba(255,255,255,0.4);
+}
+.login-feature::before { content:'—'; color: rgba(255,255,255,0.2); }
+
+.login-right {
+  background: #eef0f8;
+  padding: 50px 40px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.login-welcome { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 6px; }
+.login-title { font-size: 1.6rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; margin-bottom: 4px; }
+.login-sub { font-size: 0.75rem; color: var(--muted); margin-bottom: 24px; }
+
+.login-field { margin-bottom: 14px; }
+.login-field label { display: block; font-size: 0.7rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+.login-field input {
+  width: 100%;
+  background: white;
+  border: 1.5px solid #c7d2fe;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 0.82rem;
+  color: var(--text);
+  outline: none;
+  font-family: 'Inter', sans-serif;
+}
+
+.login-btn {
+  width: 100%;
+  background: var(--purple);
+  color: white;
+  border: none; border-radius: 8px;
+  padding: 10px;
+  font-size: 0.85rem; font-weight: 700;
+  cursor: pointer; margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ══════════════════════════════════════════
+   APP SHELL (shared layout)
+══════════════════════════════════════════ */
+.app-shell {
+  display: flex;
+  height: 100%;
+  background: var(--app-bg);
+}
+
+.sidebar {
+  width: 48px;
+  background: #1e1e30;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 12px 0; gap: 4px;
+  flex-shrink: 0;
+}
+.sb-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; cursor: pointer;
+  transition: background 0.2s;
+}
+.sb-icon.active { background: rgba(99,102,241,0.2); }
+
+.main-area { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+.topbar {
+  height: 36px;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 16px;
+  font-size: 0.7rem; color: var(--faint);
+  flex-shrink: 0;
+}
+.topbar-sep { margin: 0 6px; }
+.topbar-current { color: var(--text); font-weight: 600; }
+
+.content { flex: 1; overflow: hidden; padding: 16px; }
+
+.page-title { font-size: 1.15rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; }
+.page-sub { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
+.page-divider { height: 2px; width: 36px; background: var(--orange); border-radius: 2px; margin: 6px 0 14px; }
+
+/* ══════════════════════════════════════════
+   SCENE 2 — DASHBOARD RESUMEN
+══════════════════════════════════════════ */
+.dash-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.dash-stat-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+.dash-stat-icon { font-size: 0.9rem; margin-bottom: 4px; }
+.dash-stat-val { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.04em; }
+.dash-stat-label { font-size: 0.6rem; font-weight: 600; color: var(--faint); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+.c-green { color: #16a34a; }
+.c-purple { color: var(--purple); }
+.c-orange { color: var(--orange); }
+.c-red { color: var(--red); }
+.c-blue { color: var(--blue); }
+.c-text { color: var(--text); }
+
+.dash-section-title { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+.affiliate-list { display: flex; flex-direction: column; gap: 0; }
+.affiliate-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px;
+  background: white;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.75rem;
+}
+.affiliate-row:first-child { border-radius: 8px 8px 0 0; }
+.affiliate-row:last-child { border-bottom: none; border-radius: 0 0 8px 8px; }
+
+.af-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700; color: white; flex-shrink: 0;
+}
+.af-name { font-weight: 600; color: var(--text); font-size: 0.75rem; }
+.af-doc { font-size: 0.65rem; color: var(--faint); }
+.af-empresa { font-size: 0.65rem; font-weight: 600; color: var(--purple); margin-left: auto; }
+.af-date { font-size: 0.65rem; color: var(--faint); margin-left: 12px; }
+
+/* ══════════════════════════════════════════
+   SCENE 3 — FACTURACIÓN
+══════════════════════════════════════════ */
+.fact-metrics {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  margin-bottom: 12px;
+}
+.fact-metric {
+  background: white; border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+}
+.fact-metric-val { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.03em; }
+.fact-metric-label { font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin-top: 3px; }
+
+.fact-tabs {
+  display: flex; margin-bottom: 10px; gap: 0;
+}
+.fact-tab {
+  padding: 7px 14px; font-size: 0.72rem; font-weight: 600; cursor: pointer;
+  border-radius: 6px 6px 0 0;
+}
+.fact-tab.active { background: var(--purple); color: white; }
+.fact-tab.inactive { background: rgba(0,0,0,0.04); color: var(--muted); }
+
+.fact-table { width: 100%; border-collapse: collapse; font-size: 0.72rem; }
+.fact-table th {
+  background: #f8fafc;
+  border-bottom: 1px solid var(--border);
+  padding: 7px 10px; text-align: left;
+  font-size: 0.65rem; font-weight: 700; color: var(--faint);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.fact-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #f8fafc;
+  color: var(--text);
+}
+.fact-table tbody tr:hover td { background: #fafafe; }
+
+.badge-pagada { background: #dcfce7; color: #16a34a; font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+.badge-pend { background: #fef9c3; color: #ca8a04; font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+.code-link { color: var(--purple); font-weight: 600; font-size: 0.7rem; }
+.fact-action { display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 600; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
+.act-edit { background: #ede9fe; color: #6d28d9; }
+.act-wa { background: #dcfce7; color: #16a34a; }
+.act-pdf { background: #f1f5f9; color: var(--muted); }
+
+/* ══════════════════════════════════════════
+   SCENE 4 — DASHBOARD FINANCIERO
+══════════════════════════════════════════ */
+.fin-layout {
+  display: grid; grid-template-columns: 140px 1fr; gap: 10px;
+  height: 100%;
+}
+
+.fin-left { display: flex; flex-direction: column; gap: 8px; }
+.fin-kpi {
+  background: white; border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px;
+}
+.fin-kpi-icon { font-size: 0.85rem; margin-bottom: 3px; }
+.fin-kpi-val { font-size: 1rem; font-weight: 800; letter-spacing: -0.03em; }
+.fin-kpi-label { font-size: 0.6rem; color: var(--faint); font-weight: 500; margin-top: 1px; }
+.fin-kpi-sub { font-size: 0.6rem; color: var(--faint); margin-top: 2px; }
+
+.fin-right { display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+
+.fin-chart-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+}
+.fin-chart-title { font-size: 0.7rem; font-weight: 700; color: var(--text); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+
+.chart-layout { display: flex; gap: 16px; align-items: center; }
+
+.donut-wrap { flex-shrink: 0; }
+
+.bank-bars { flex: 1; display: flex; flex-direction: column; gap: 7px; }
+.bank-row { display: flex; align-items: center; gap: 8px; font-size: 0.68rem; }
+.bank-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.bank-name { color: var(--text); font-weight: 500; min-width: 70px; }
+.bank-bar-wrap { flex: 1; height: 5px; background: #f1f5f9; border-radius: 3px; }
+.bank-bar { height: 100%; border-radius: 3px; }
+.bank-val { color: var(--faint); font-size: 0.65rem; min-width: 60px; text-align: right; }
+
+.rentab-table { width: 100%; border-collapse: collapse; font-size: 0.68rem; }
+.rentab-table th {
+  background: #f8fafc; padding: 6px 8px; text-align: left;
+  font-size: 0.6rem; font-weight: 700; color: var(--faint);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+}
+.rentab-table td { padding: 6px 8px; border-bottom: 1px solid #f8fafc; color: var(--text); }
+.rentab-table tbody tr:hover td { background: #fafafe; }
+.margen-badge { font-size: 0.65rem; font-weight: 700; padding: 1px 6px; border-radius: 3px; }
+.margen-pos { background: #dcfce7; color: #16a34a; }
+.margen-neg { background: #fef2f2; color: #dc2626; }
+
+/* ══════════════════════════════════════════
+   SCENE 5 — MÓDULO DE COBRO
+══════════════════════════════════════════ */
+.cobro-stats {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+  margin-bottom: 12px;
+}
+.cobro-stat {
+  background: white; border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px;
+  text-align: center;
+}
+.cobro-stat-val { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.03em; }
+.cobro-stat-label { font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--faint); margin-top: 3px; }
+
+.cobro-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
+.cobro-table th {
+  background: #f8fafc; padding: 6px 10px; text-align: left;
+  font-size: 0.6rem; font-weight: 700; color: var(--faint);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+}
+.cobro-table td { padding: 7px 10px; border-bottom: 1px solid #f8fafc; }
+.cobro-row-vencido td { background: #fff5f5; }
+.cobro-row-hoy td { background: #fffbeb; }
+
+.badge-vencido { background: #fef2f2; color: #dc2626; font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+.badge-hoy { background: #fef9c3; color: #ca8a04; font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+
+.svc-eps { background: #dbeafe; color: #1d4ed8; font-size: 0.6rem; font-weight: 700; padding: 1px 5px; border-radius: 3px; display: inline-block; margin-right: 2px; }
+.svc-arl { background: #dcfce7; color: #16a34a; font-size: 0.6rem; font-weight: 700; padding: 1px 5px; border-radius: 3px; display: inline-block; }
+
+/* ══════════════════════════════════════════
+   SCENE 6 — PORTAL DEL CLIENTE
+══════════════════════════════════════════ */
+.scene-portal {
+  background: #0f1729;
+  height: 100%;
+  display: flex; flex-direction: column;
+}
+
+.portal-topbar {
+  background: #1a2540;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.portal-brand { display: flex; align-items: center; gap: 8px; }
+.portal-brand-name { font-size: 0.85rem; font-weight: 800; color: white; letter-spacing: -0.02em; }
+.portal-brand-sub { font-size: 0.62rem; color: rgba(255,255,255,0.4); }
+.portal-user { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+.portal-user-icon { color: var(--orange); }
+
+.portal-header {
+  background: #1a2540;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 8px 20px;
+  display: flex; gap: 24px;
+}
+.portal-stat { }
+.portal-stat-val { font-size: 1.1rem; font-weight: 800; color: var(--orange); }
+.portal-stat-label { font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.4); }
+
+.portal-tabs-bar {
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; gap: 0;
+  background: #131e35;
+}
+.portal-tab {
+  padding: 9px 14px; font-size: 0.72rem; font-weight: 500;
+  color: rgba(255,255,255,0.4); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  display: flex; align-items: center; gap: 5px;
+}
+.portal-tab.active { color: white; border-bottom-color: var(--purple); }
+
+.portal-content { flex: 1; padding: 14px 20px; overflow: hidden; }
+
+.portal-filters {
+  display: flex; gap: 10px; margin-bottom: 12px; align-items: center;
+}
+.portal-search {
+  flex: 1; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px; padding: 6px 12px;
+  font-size: 0.72rem; color: rgba(255,255,255,0.5);
+  font-family: 'Inter', sans-serif;
+}
+.portal-filter-select {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px; padding: 6px 10px;
+  font-size: 0.72rem; color: rgba(255,255,255,0.5);
+  font-family: 'Inter', sans-serif;
+}
+.portal-export-btn {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px; padding: 6px 12px;
+  font-size: 0.72rem; color: rgba(255,255,255,0.6); font-weight: 600;
+  cursor: pointer; font-family: 'Inter', sans-serif;
+}
+
+.portal-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
+.portal-table th {
+  padding: 7px 12px; text-align: left;
+  font-size: 0.6rem; font-weight: 700; color: rgba(255,255,255,0.3);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.portal-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.75);
+}
+.portal-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+
+.portal-empresa { font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+.pe-purple { background: rgba(139,92,246,0.2); color: #a78bfa; }
+.pe-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+
+.portal-activo { font-size: 0.65rem; font-weight: 700; color: #4ade80; }
+
+.portal-btn { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
+.pb-blue { background: rgba(99,102,241,0.25); color: #818cf8; }
+.pb-orange { background: rgba(245,158,11,0.2); color: #fbbf24; }
+.pb-red { background: rgba(239,68,68,0.2); color: #f87171; }
+
+/* ══════════════════════════════════════════
+   SCENE 7 — TAREAS
+══════════════════════════════════════════ */
+.tareas-progress-bar {
+  height: 6px; border-radius: 3px; overflow: hidden;
+  display: flex; margin-bottom: 12px;
+}
+.tp-pend { background: #f87171; }
+.tp-proc { background: #fbbf24; }
+.tp-done { background: #4ade80; }
+
+.tareas-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 10px; }
+.tareas-tab {
+  flex: 1; text-align: center; padding: 7px;
+  font-size: 0.72rem; font-weight: 600; cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.tareas-tab.pend { color: #dc2626; border-bottom-color: #dc2626; }
+.tareas-tab.proc { color: #ca8a04; }
+.tareas-tab.done { background: #f0fdf4; color: #16a34a; border-bottom-color: #16a34a; }
+
+.tarea-item {
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 14px;
+  margin-bottom: 6px;
+}
+.tarea-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.tarea-checkbox { width: 14px; height: 14px; border: 1.5px solid var(--border); border-radius: 3px; flex-shrink: 0; }
+.tarea-title { font-size: 0.78rem; font-weight: 600; color: var(--text); flex: 1; }
+.tarea-badge { font-size: 0.62rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+.tb-done { background: #dcfce7; color: #16a34a; }
+.tb-pend { background: #fef9c3; color: #ca8a04; }
+.tb-proc { background: #dbeafe; color: #1d4ed8; }
+.tarea-desc { font-size: 0.68rem; color: var(--muted); margin-bottom: 6px; padding-left: 22px; }
+.tarea-meta { display: flex; gap: 8px; padding-left: 22px; align-items: center; }
+.tarea-meta-chip { display: flex; align-items: center; gap: 4px; font-size: 0.62rem; color: var(--faint); background: #f8fafc; border: 1px solid var(--border); padding: 2px 7px; border-radius: 4px; }
+.tarea-actions { margin-left: auto; display: flex; gap: 4px; }
+.tarea-action { font-size: 0.65rem; font-weight: 600; padding: 3px 10px; border-radius: 4px; cursor: pointer; }
+.ta-finalizar { background: #6366f1; color: white; }
+.ta-del { background: #fef2f2; color: #dc2626; }
+
+.tour-cta {
+  margin-top: 20px;
+  text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  flex-wrap: wrap;
+}
+.tour-cta-text {
+  font-size: 0.9rem;
+  color: #55556a;
+  font-weight: 500;
+}
+.tour-cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #25D366;
+  color: white;
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-size: 0.9rem; font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+}
+.tour-cta-btn:hover { background: #1fba58; transform: translateY(-1px); }
+</style>
+</head>
+<body>
+
+<div class="tour-wrap">
+  <div class="tour-label">
+    <div class="tour-label-tag">Demo interactiva</div>
+    <div class="tour-label-title">BBC File Service en acción</div>
+    <div class="tour-label-sub">Recorre las pantallas principales del sistema</div>
+  </div>
+
+  <div class="browser">
+    <div class="browser-bar">
+      <div class="browser-dots">
+        <div class="browser-dot" style="background:#ff5f57"></div>
+        <div class="browser-dot" style="background:#febc2e"></div>
+        <div class="browser-dot" style="background:#28c840"></div>
+      </div>
+      <div class="browser-url" id="browserUrl">app.bbcfile.com/login</div>
+    </div>
+
+    <div class="app-viewport">
+
+      <!-- SCENE 1: LOGIN -->
+      <div class="scene scene-login active" id="scene0">
+        <div class="login-left">
+          <div class="login-badge">● SISTEMA ACTIVO</div>
+          <div class="login-logo"><span>BBC</span><span style="font-weight:300">File</span></div>
+          <div class="login-tagline">Plataforma integral de gestión de<br>personal y seguridad social.</div>
+          <div class="login-features">
+            <div class="login-feature">Gestión de afiliados y novedades</div>
+            <div class="login-feature">Control de retiros y planillas</div>
+            <div class="login-feature">Portal cliente integrado</div>
+            <div class="login-feature">Reportes y facturación</div>
+          </div>
+        </div>
+        <div class="login-right">
+          <div class="login-welcome">BIENVENIDO</div>
+          <div class="login-title">Inicio de sesión</div>
+          <div class="login-sub">Ingresa tus credenciales para continuar</div>
+          <div class="login-field">
+            <label>USUARIO</label>
+            <input type="text" value="mg.contadora" readonly />
+          </div>
+          <div class="login-field">
+            <label>CONTRASEÑA</label>
+            <input type="password" value="••••••••" readonly />
+          </div>
+          <button class="login-btn">Ingresar al sistema</button>
+        </div>
+      </div>
+
+      <!-- SCENE 2: DASHBOARD RESUMEN -->
+      <div class="scene" id="scene1">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-icon" style="background:rgba(99,102,241,0.15);border-radius:8px;margin-bottom:8px">
+              <svg width="16" height="18" viewBox="0 0 60 70" fill="none"><path d="M30 2 L56 12 L56 35 C56 52 30 68 30 68 C30 68 4 52 4 35 L4 12 Z" fill="#6366f1"/><polyline points="20,36 27,43 42,28" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="sb-icon active">📊</div>
+            <div class="sb-icon">👥</div>
+            <div class="sb-icon">💰</div>
+            <div class="sb-icon">📋</div>
+            <div class="sb-icon">🌐</div>
+            <div class="sb-icon">✅</div>
+          </div>
+          <div class="main-area">
+            <div class="topbar">Panel <span class="topbar-sep">/</span> <span class="topbar-current">Dashboard</span></div>
+            <div class="content">
+              <div class="page-title">Resumen general</div>
+              <div class="page-sub">Estado operativo del sistema</div>
+              <div class="page-divider"></div>
+              <div class="dash-stats-grid">
+                <div class="dash-stat-card">
+                  <div class="dash-stat-icon">👥</div>
+                  <div class="dash-stat-val c-green">318</div>
+                  <div class="dash-stat-label">Activos</div>
+                </div>
+                <div class="dash-stat-card">
+                  <div class="dash-stat-icon">⏸</div>
+                  <div class="dash-stat-val c-orange">2</div>
+                  <div class="dash-stat-label">Suspendidos</div>
+                </div>
+                <div class="dash-stat-card">
+                  <div class="dash-stat-icon">🔄</div>
+                  <div class="dash-stat-val c-red">0</div>
+                  <div class="dash-stat-label">Doble afil.</div>
+                </div>
+                <div class="dash-stat-card">
+                  <div class="dash-stat-icon">🔍</div>
+                  <div class="dash-stat-val c-purple">3</div>
+                  <div class="dash-stat-label">No encontrado</div>
+                </div>
+                <div class="dash-stat-card">
+                  <div class="dash-stat-icon">⏳</div>
+                  <div class="dash-stat-val c-blue">6</div>
+                  <div class="dash-stat-label">En espera</div>
+                </div>
+                <div class="dash-stat-card">
+                  <div class="dash-stat-icon">📋</div>
+                  <div class="dash-stat-val c-text">329</div>
+                  <div class="dash-stat-label">Total afil.</div>
+                </div>
+              </div>
+              <div class="dash-section-title">📋 ÚLTIMOS AFILIADOS</div>
+              <div class="affiliate-list">
+                <div class="affiliate-row">
+                  <div class="af-avatar" style="background:#6366f1">C</div>
+                  <div><div class="af-name">CAMILA TORRES RESTREPO</div><div class="af-doc">CC 43521087</div></div>
+                  <div class="af-empresa">NOMISEG</div>
+                  <div class="af-date">25 de abr</div>
+                </div>
+                <div class="affiliate-row">
+                  <div class="af-avatar" style="background:#f59e0b">J</div>
+                  <div><div class="af-name">JULIAN MORA CIFUENTES</div><div class="af-doc">CC 1067891234</div></div>
+                  <div class="af-empresa">OUTSERNOVA</div>
+                  <div class="af-date">25 de abr</div>
+                </div>
+                <div class="affiliate-row">
+                  <div class="af-avatar" style="background:#22c55e">D</div>
+                  <div><div class="af-name">DIANA VARGAS LOPEZ</div><div class="af-doc">CC 52876543</div></div>
+                  <div class="af-empresa">OUTSERNOVA</div>
+                  <div class="af-date">24 de abr</div>
+                </div>
+                <div class="affiliate-row">
+                  <div class="af-avatar" style="background:#ec4899">L</div>
+                  <div><div class="af-name">LUZ MARINA PEREZ GOMEZ</div><div class="af-doc">CC 38721904</div></div>
+                  <div class="af-empresa">NOMISEG</div>
+                  <div class="af-date">24 de abr</div>
+                </div>
+                <div class="affiliate-row">
+                  <div class="af-avatar" style="background:#8b5cf6">R</div>
+                  <div><div class="af-name">RODRIGO CASTILLO MEJIA</div><div class="af-doc">CC 79302817</div></div>
+                  <div class="af-empresa">SERVITOTAL</div>
+                  <div class="af-date">23 de abr</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 3: FACTURACIÓN -->
+      <div class="scene" id="scene2">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-icon" style="background:rgba(99,102,241,0.15);border-radius:8px;margin-bottom:8px">
+              <svg width="16" height="18" viewBox="0 0 60 70" fill="none"><path d="M30 2 L56 12 L56 35 C56 52 30 68 30 68 C30 68 4 52 4 35 L4 12 Z" fill="#6366f1"/><polyline points="20,36 27,43 42,28" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="sb-icon">📊</div>
+            <div class="sb-icon">👥</div>
+            <div class="sb-icon active">💰</div>
+            <div class="sb-icon">📋</div>
+            <div class="sb-icon">🌐</div>
+            <div class="sb-icon">✅</div>
+          </div>
+          <div class="main-area">
+            <div class="topbar">Panel <span class="topbar-sep">/</span> <span class="topbar-current">Facturación</span>
+              <div style="margin-left:auto;display:flex;gap:6px">
+                <div style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:5px;padding:3px 10px;font-size:0.68rem;font-weight:600;color:#64748b;display:flex;align-items:center;gap:4px">📊 Exportar Excel</div>
+                <div style="background:#f59e0b;border-radius:5px;padding:3px 10px;font-size:0.68rem;font-weight:700;color:white">+ Nueva factura</div>
+              </div>
+            </div>
+            <div class="content">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <div><div class="page-title">Facturación</div><div class="page-sub">50 de 187 facturas</div><div class="page-divider"></div></div>
+              </div>
+              <div class="fact-metrics">
+                <div class="fact-metric"><div class="fact-metric-val" style="color:#16a34a">$12.340.500</div><div class="fact-metric-label">Total ingresos</div></div>
+                <div class="fact-metric"><div class="fact-metric-val" style="color:#6366f1">$5.820.300</div><div class="fact-metric-label">Utilidad bruta</div></div>
+                <div class="fact-metric"><div class="fact-metric-val" style="color:#f59e0b">$840.000</div><div class="fact-metric-label">Pendiente cobro</div></div>
+                <div class="fact-metric"><div class="fact-metric-val" style="color:#ef4444">3</div><div class="fact-metric-label">Facturas pendientes</div></div>
+              </div>
+              <div class="fact-tabs">
+                <div class="fact-tab active">📄 Facturas (50)</div>
+                <div class="fact-tab inactive">+ Ingresos adicionales (21)</div>
+              </div>
+              <table class="fact-table">
+                <thead>
+                  <tr><th>Código</th><th>Afiliado</th><th>Cliente</th><th>Período</th><th>Ingreso</th><th>Planilla</th><th>Utilidad</th><th>Estado</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="code-link">FVE-1021</td>
+                    <td style="color:#6366f1;font-weight:600">CAMILA TORRES RESTREPO</td>
+                    <td>SR CONSULTOR</td>
+                    <td>Abril 2026</td>
+                    <td>$115.000</td>
+                    <td style="color:#ef4444">$70.100</td>
+                    <td style="color:#16a34a">$44.900</td>
+                    <td><span class="badge-pagada">Pagada</span></td>
+                    <td><span class="fact-action act-edit">✏ Editar</span></td>
+                  </tr>
+                  <tr>
+                    <td class="code-link">FVE-1020</td>
+                    <td style="color:#6366f1;font-weight:600">DIANA VARGAS LOPEZ</td>
+                    <td>SR CONSULTOR</td>
+                    <td>Abril 2026</td>
+                    <td>$200.549</td>
+                    <td style="color:#ef4444">$149.400</td>
+                    <td style="color:#16a34a">$51.149</td>
+                    <td><span class="badge-pagada">Pagada</span></td>
+                    <td><span class="fact-action act-edit">✏ Editar</span></td>
+                  </tr>
+                  <tr>
+                    <td class="code-link">FVE-1019</td>
+                    <td style="color:#6366f1;font-weight:600">CARLOS RIOS MESA</td>
+                    <td>OUTSERNOVA</td>
+                    <td>Abril 2026</td>
+                    <td>$59.833</td>
+                    <td style="color:#ef4444">$30.400</td>
+                    <td style="color:#16a34a">$29.433</td>
+                    <td><span class="badge-pend">Pendiente</span></td>
+                    <td><span class="fact-action act-wa">WhatsApp</span></td>
+                  </tr>
+                  <tr>
+                    <td class="code-link">FVE-1018</td>
+                    <td style="color:#6366f1;font-weight:600">JULIAN MORA CIFUENTES</td>
+                    <td>OUTSERNOVA</td>
+                    <td>Abril 2026</td>
+                    <td>$163.533</td>
+                    <td style="color:#ef4444">$128.100</td>
+                    <td style="color:#16a34a">$35.433</td>
+                    <td><span class="badge-pagada">Pagada</span></td>
+                    <td><span class="fact-action act-edit">✏ Editar</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 4: DASHBOARD FINANCIERO -->
+      <div class="scene" id="scene3">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-icon" style="background:rgba(99,102,241,0.15);border-radius:8px;margin-bottom:8px">
+              <svg width="16" height="18" viewBox="0 0 60 70" fill="none"><path d="M30 2 L56 12 L56 35 C56 52 30 68 30 68 C30 68 4 52 4 35 L4 12 Z" fill="#6366f1"/><polyline points="20,36 27,43 42,28" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="sb-icon active">📊</div>
+            <div class="sb-icon">👥</div>
+            <div class="sb-icon">💰</div>
+            <div class="sb-icon">📋</div>
+          </div>
+          <div class="main-area">
+            <div class="topbar">Panel <span class="topbar-sep">/</span> <span class="topbar-current">Dashboard Financiero</span></div>
+            <div class="content" style="padding:12px">
+              <div class="fin-layout">
+                <div class="fin-left">
+                  <div class="fin-kpi">
+                    <div class="fin-kpi-icon">$</div>
+                    <div class="fin-kpi-val" style="color:#16a34a;font-size:0.9rem">$38.140.500</div>
+                    <div class="fin-kpi-label">Ingresos totales</div>
+                    <div class="fin-kpi-sub">incl. $3.820.000 extra</div>
+                  </div>
+                  <div class="fin-kpi">
+                    <div class="fin-kpi-icon" style="color:#ef4444">❤</div>
+                    <div class="fin-kpi-val" style="color:#6366f1;font-size:0.9rem">$24.380.200</div>
+                    <div class="fin-kpi-label">Aportes SS</div>
+                    <div class="fin-kpi-sub">63.9% de ingresos</div>
+                  </div>
+                  <div class="fin-kpi">
+                    <div class="fin-kpi-icon">↗</div>
+                    <div class="fin-kpi-val" style="color:#22c55e;font-size:0.9rem">$2.740.800</div>
+                    <div class="fin-kpi-label">Utilidad neta</div>
+                    <div class="fin-kpi-sub">7.2% margen</div>
+                  </div>
+                  <div class="fin-kpi">
+                    <div class="fin-kpi-icon">⏰</div>
+                    <div class="fin-kpi-val" style="color:#f59e0b;font-size:0.9rem">$4.120.500</div>
+                    <div class="fin-kpi-label">Pendiente cobrar</div>
+                    <div class="fin-kpi-sub">saldo histórico</div>
+                  </div>
+                </div>
+                <div class="fin-right">
+                  <div class="fin-chart-card">
+                    <div class="fin-chart-title">🏦 Cobros por banco</div>
+                    <div class="chart-layout">
+                      <div class="donut-wrap">
+                        <svg width="72" height="72" viewBox="0 0 72 72">
+                          <circle cx="36" cy="36" r="28" fill="none" stroke="#f1f5f9" stroke-width="12"/>
+                          <circle cx="36" cy="36" r="28" fill="none" stroke="#3b82f6" stroke-width="12" stroke-dasharray="88 88" stroke-dashoffset="22" transform="rotate(-90 36 36)"/>
+                          <circle cx="36" cy="36" r="28" fill="none" stroke="#22c55e" stroke-width="12" stroke-dasharray="40 136" stroke-dashoffset="-66" transform="rotate(-90 36 36)"/>
+                          <circle cx="36" cy="36" r="28" fill="none" stroke="#f59e0b" stroke-width="12" stroke-dasharray="24 152" stroke-dashoffset="-106" transform="rotate(-90 36 36)"/>
+                          <circle cx="36" cy="36" r="28" fill="none" stroke="#ef4444" stroke-width="12" stroke-dasharray="4 172" stroke-dashoffset="-130" transform="rotate(-90 36 36)"/>
+                          <text x="36" y="33" text-anchor="middle" font-size="6" font-weight="700" fill="#94a3b8" font-family="Inter">TOTAL</text>
+                          <text x="36" y="43" text-anchor="middle" font-size="7.5" font-weight="800" fill="#1e293b" font-family="Inter">$38.1M</text>
+                        </svg>
+                      </div>
+                      <div class="bank-bars">
+                        <div class="bank-row">
+                          <div class="bank-dot" style="background:#3b82f6"></div>
+                          <div class="bank-name">Nequi</div>
+                          <div class="bank-bar-wrap"><div class="bank-bar" style="width:56%;background:#3b82f6"></div></div>
+                          <div class="bank-val">$19.840.200</div>
+                        </div>
+                        <div class="bank-row">
+                          <div class="bank-dot" style="background:#22c55e"></div>
+                          <div class="bank-name">Bancolombia</div>
+                          <div class="bank-bar-wrap"><div class="bank-bar" style="width:25%;background:#22c55e"></div></div>
+                          <div class="bank-val">$8.920.100</div>
+                        </div>
+                        <div class="bank-row">
+                          <div class="bank-dot" style="background:#f59e0b"></div>
+                          <div class="bank-name">Daviplata</div>
+                          <div class="bank-bar-wrap"><div class="bank-bar" style="width:14%;background:#f59e0b"></div></div>
+                          <div class="bank-val">$5.140.200</div>
+                        </div>
+                        <div class="bank-row">
+                          <div class="bank-dot" style="background:#ef4444"></div>
+                          <div class="bank-name">Banco Bogotá</div>
+                          <div class="bank-bar-wrap"><div class="bank-bar" style="width:2%;background:#ef4444"></div></div>
+                          <div class="bank-val">$240.000</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fin-chart-card" style="flex:1;overflow:hidden">
+                    <div class="fin-chart-title">📈 RENTABILIDAD POR CLIENTE</div>
+                    <table class="rentab-table">
+                      <thead><tr><th>Cliente</th><th>Afiliados</th><th>Ingresos</th><th>Aportes SS</th><th>Utilidad</th><th>Margen</th><th>Pendiente</th></tr></thead>
+                      <tbody>
+                        <tr><td style="font-weight:600">PRINCIPAL</td><td>82</td><td>$10.820.400</td><td>$7.010.200</td><td>$3.810.200</td><td><span class="margen-badge margen-pos">35.2%</span></td><td style="color:#f59e0b">$3.980.100</td></tr>
+                        <tr><td style="font-weight:600">SR CONSULTOR</td><td>78</td><td>$7.940.300</td><td>$5.980.100</td><td>$1.960.200</td><td><span class="margen-badge margen-pos">24.7%</span></td><td>$0</td></tr>
+                        <tr><td style="font-weight:600">OUTSERNOVA</td><td>54</td><td>$5.180.200</td><td>$3.980.300</td><td>$1.199.900</td><td><span class="margen-badge margen-pos">23.2%</span></td><td>$0</td></tr>
+                        <tr><td style="font-weight:600">NOMISEG</td><td>34</td><td>$4.520.100</td><td>$3.140.400</td><td>$1.379.700</td><td><span class="margen-badge margen-pos">30.5%</span></td><td>$0</td></tr>
+                        <tr><td style="font-weight:600">SERVITOTAL</td><td>10</td><td>$460.000</td><td>$412.100</td><td style="color:#ef4444">-$12.100</td><td><span class="margen-badge margen-neg">-2.6%</span></td><td style="color:#f59e0b">$140.400</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 5: MÓDULO DE COBRO -->
+      <div class="scene" id="scene4">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-icon" style="background:rgba(99,102,241,0.15);border-radius:8px;margin-bottom:8px">
+              <svg width="16" height="18" viewBox="0 0 60 70" fill="none"><path d="M30 2 L56 12 L56 35 C56 52 30 68 30 68 C30 68 4 52 4 35 L4 12 Z" fill="#6366f1"/><polyline points="20,36 27,43 42,28" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="sb-icon">📊</div>
+            <div class="sb-icon">👥</div>
+            <div class="sb-icon">💰</div>
+            <div class="sb-icon active">📋</div>
+          </div>
+          <div class="main-area">
+            <div class="topbar">Panel <span class="topbar-sep">/</span> <span class="topbar-current">Módulo de cobro</span>
+              <div style="margin-left:auto"><div style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:5px;padding:3px 10px;font-size:0.68rem;font-weight:600;color:#64748b">Excel</div></div>
+            </div>
+            <div class="content">
+              <div class="page-title" style="display:flex;align-items:center;gap:8px">🧾 Módulo de cobro</div>
+              <div class="page-sub">248 afiliados — sábado, 26 de abril</div>
+              <div class="page-divider"></div>
+              <div class="cobro-stats">
+                <div class="cobro-stat"><div class="cobro-stat-val c-orange">4</div><div class="cobro-stat-label">Cobrar hoy</div></div>
+                <div class="cobro-stat"><div class="cobro-stat-val c-red">87</div><div class="cobro-stat-label">Vencidos</div></div>
+                <div class="cobro-stat"><div class="cobro-stat-val c-purple" style="font-size:0.9rem">$14.820.100</div><div class="cobro-stat-label">Planilla pend.</div></div>
+                <div class="cobro-stat"><div class="cobro-stat-val c-green">152</div><div class="cobro-stat-label">Cobrados mes</div></div>
+                <div class="cobro-stat"><div class="cobro-stat-val c-text">248</div><div class="cobro-stat-label">Total</div></div>
+              </div>
+              <table class="cobro-table">
+                <thead><tr><th>Afiliado</th><th>Doc.</th><th>Cliente</th><th>Período</th><th>Día cobro</th><th>Servicios</th><th>Planilla ($)</th><th>Estado</th></tr></thead>
+                <tbody>
+                  <tr class="cobro-row-vencido">
+                    <td style="font-weight:600;color:#6366f1">CAMILA TORRES RESTREPO<br><span style="font-size:0.62rem;color:#94a3b8;font-weight:400">NOMISEG</span></td>
+                    <td style="color:#94a3b8">43521087</td>
+                    <td>SR CONSULTOR</td>
+                    <td>Abril 2026</td>
+                    <td style="color:#6366f1">Día 10</td>
+                    <td><span class="svc-eps">EPS</span><span class="svc-arl">ARL 3</span></td>
+                    <td style="font-weight:700;color:#ef4444">$112.800</td>
+                    <td><span class="badge-vencido">VENCIDO</span></td>
+                  </tr>
+                  <tr class="cobro-row-vencido">
+                    <td style="font-weight:600;color:#6366f1">JULIAN MORA CIFUENTES<br><span style="font-size:0.62rem;color:#94a3b8;font-weight:400">OUTSERNOVA</span></td>
+                    <td style="color:#94a3b8">1067891234</td>
+                    <td>OUTSERNOVA</td>
+                    <td>Abril 2026</td>
+                    <td style="color:#6366f1">Día 12</td>
+                    <td><span class="svc-eps">EPS</span></td>
+                    <td style="font-weight:700;color:#ef4444">$70.100</td>
+                    <td><span class="badge-vencido">VENCIDO</span></td>
+                  </tr>
+                  <tr class="cobro-row-hoy">
+                    <td style="font-weight:600;color:#6366f1">DIANA VARGAS LOPEZ<br><span style="font-size:0.62rem;color:#94a3b8;font-weight:400">OUTSERNOVA</span></td>
+                    <td style="color:#94a3b8">52876543</td>
+                    <td>SR CONSULTOR</td>
+                    <td>Abril 2026</td>
+                    <td style="color:#ca8a04">Día 26</td>
+                    <td><span class="svc-eps">EPS</span></td>
+                    <td style="font-weight:700;color:#ca8a04">$70.100</td>
+                    <td><span class="badge-hoy">HOY</span></td>
+                  </tr>
+                  <tr class="cobro-row-vencido">
+                    <td style="font-weight:600;color:#6366f1">CARLOS RIOS MESA<br><span style="font-size:0.62rem;color:#94a3b8;font-weight:400">SERVITOTAL</span></td>
+                    <td style="color:#94a3b8">80123456</td>
+                    <td>NOMISEG</td>
+                    <td>Abril 2026</td>
+                    <td style="color:#6366f1">Día 8</td>
+                    <td><span class="svc-eps">EPS</span><span class="svc-arl">ARL 1</span></td>
+                    <td style="font-weight:700;color:#ef4444">$79.300</td>
+                    <td><span class="badge-vencido">VENCIDO</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 6: TAREAS -->
+      <div class="scene" id="scene5">
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sb-icon" style="background:rgba(99,102,241,0.15);border-radius:8px;margin-bottom:8px">
+              <svg width="16" height="18" viewBox="0 0 60 70" fill="none"><path d="M30 2 L56 12 L56 35 C56 52 30 68 30 68 C30 68 4 52 4 35 L4 12 Z" fill="#6366f1"/><polyline points="20,36 27,43 42,28" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="sb-icon">📊</div>
+            <div class="sb-icon">👥</div>
+            <div class="sb-icon">💰</div>
+            <div class="sb-icon">📋</div>
+            <div class="sb-icon">🌐</div>
+            <div class="sb-icon active">✅</div>
+          </div>
+          <div class="main-area">
+            <div class="topbar">Panel <span class="topbar-sep">/</span> <span class="topbar-current">Tareas</span>
+              <div style="margin-left:auto"><div style="background:#f59e0b;border-radius:5px;padding:3px 10px;font-size:0.68rem;font-weight:700;color:white">+ Nueva tarea</div></div>
+            </div>
+            <div class="content">
+              <div class="page-title" style="display:flex;align-items:center;gap:8px">✅ Tareas</div>
+              <div class="page-sub">Gestión y asignación de tareas</div>
+              <div class="page-divider"></div>
+              <div class="tareas-tabs">
+                <div class="tareas-tab pend">Pendientes 7</div>
+                <div class="tareas-tab proc" style="color:#ca8a04">En proceso 3</div>
+                <div class="tareas-tab done">Completadas 18</div>
+              </div>
+              <div class="tareas-progress-bar">
+                <div class="tp-pend" style="width:25%"></div>
+                <div class="tp-proc" style="width:10%"></div>
+                <div class="tp-done" style="width:65%"></div>
+              </div>
+              <div class="tarea-item">
+                <div class="tarea-header">
+                  <div class="tarea-checkbox"></div>
+                  <div class="tarea-title">Liquidación de 3 personas — servicios y asesorías abril</div>
+                  <span class="tarea-badge tb-done">Completada</span>
+                  <div class="tarea-actions"><div class="tarea-action ta-finalizar">Finalizar</div><div class="tarea-action ta-del">🗑</div></div>
+                </div>
+                <div class="tarea-meta">
+                  <div class="tarea-meta-chip">👤 MG CONTADORA</div>
+                  <div class="tarea-meta-chip">⏱ -1d restantes</div>
+                  <div class="tarea-meta-chip">📅 25/4/2026</div>
+                </div>
+              </div>
+              <div class="tarea-item">
+                <div class="tarea-header">
+                  <div class="tarea-checkbox"></div>
+                  <div class="tarea-title">Liquidación de pagos y retiros — OUTSERNOVA</div>
+                  <span class="tarea-badge tb-done">Completada</span>
+                  <div class="tarea-actions"><div class="tarea-action ta-finalizar">Finalizar</div><div class="tarea-action ta-del">🗑</div></div>
+                </div>
+                <div class="tarea-desc">Por favor realizar liquidación de acuerdo al Excel adjunto</div>
+                <div class="tarea-meta">
+                  <div class="tarea-meta-chip">👤 JULIAN MG</div>
+                  <div class="tarea-meta-chip">⏱ -1d restantes</div>
+                  <div class="tarea-meta-chip">📅 24/4/2026</div>
+                </div>
+              </div>
+              <div class="tarea-item">
+                <div class="tarea-header">
+                  <div class="tarea-checkbox"></div>
+                  <div class="tarea-title">Verificar afiliaciones nuevas del 20 de abril</div>
+                  <span class="tarea-badge tb-pend">Pendiente</span>
+                  <div class="tarea-actions"><div class="tarea-action ta-finalizar">Finalizar</div><div class="tarea-action ta-del">🗑</div></div>
+                </div>
+                <div class="tarea-desc">Confirmar con clientes que todos los datos estén correctos antes de enviar planilla</div>
+                <div class="tarea-meta">
+                  <div class="tarea-meta-chip">👤 DIANA V</div>
+                  <div class="tarea-meta-chip">⏱ 2d restantes</div>
+                  <div class="tarea-meta-chip">📅 28/4/2026</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 7: PORTAL CLIENTE -->
+      <div class="scene scene-portal" id="scene6">
+        <div class="portal-topbar">
+          <div class="portal-brand">
+            <svg width="20" height="23" viewBox="0 0 60 70" fill="none"><path d="M30 2 L56 12 L56 35 C56 52 30 68 30 68 C30 68 4 52 4 35 L4 12 Z" fill="#10b981"/><polyline points="20,36 27,43 42,28" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><div class="portal-brand-name">BBC File <span style="font-weight:300;color:rgba(255,255,255,0.5)">Portal del Cliente</span></div></div>
+          </div>
+          <div class="portal-user"><span class="portal-user-icon">👤</span> NOMISEG PRINCIPAL &nbsp;|&nbsp; 🔔 &nbsp;|&nbsp; Salir</div>
+        </div>
+        <div class="portal-header">
+          <div class="portal-stat"><div class="portal-stat-val">28</div><div class="portal-stat-label">Total</div></div>
+          <div class="portal-stat"><div class="portal-stat-val" style="color:#22c55e">28</div><div class="portal-stat-label">Activos</div></div>
+          <div class="portal-stat"><div class="portal-stat-val" style="color:#94a3b8">0</div><div class="portal-stat-label">Retirados</div></div>
+          <div class="portal-stat"><div class="portal-stat-val" style="color:#94a3b8">0</div><div class="portal-stat-label">Suspendidos</div></div>
+        </div>
+        <div class="portal-tabs-bar">
+          <div class="portal-tab active">👥 Mis Afiliados</div>
+          <div class="portal-tab">📋 Historial</div>
+          <div class="portal-tab">📄 Planillas Pagadas</div>
+          <div class="portal-tab">📊 Reportes</div>
+          <div class="portal-tab">🔔 Novedades</div>
+        </div>
+        <div class="portal-content">
+          <div class="portal-filters">
+            <div class="portal-search">Nombre o cédula…</div>
+            <select class="portal-filter-select"><option>Todos</option></select>
+            <select class="portal-filter-select"><option>Todas</option></select>
+            <div class="portal-export-btn">Exportar Excel</div>
+          </div>
+          <table class="portal-table">
+            <thead><tr><th></th><th>Nombre</th><th>Documento</th><th>Empresa</th><th>EPS</th><th>AFP</th><th>CCF</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" style="accent-color:#6366f1"></td>
+                <td style="font-weight:600;color:rgba(255,255,255,0.9)">CAMILA TORRES RESTREPO</td>
+                <td style="color:rgba(255,255,255,0.4)">CC 43521087</td>
+                <td><span class="portal-empresa pe-purple">NOMISEG</span></td>
+                <td>Sura</td><td>—</td><td>—</td>
+                <td><span class="portal-activo">● ACTIVO</span></td>
+                <td><span class="portal-btn pb-blue">Ver</span> <span class="portal-btn pb-orange">Novedad</span> <span class="portal-btn pb-red">Retiro</span></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" style="accent-color:#6366f1"></td>
+                <td style="font-weight:600;color:rgba(255,255,255,0.9)">LUZ MARINA PEREZ GOMEZ</td>
+                <td style="color:rgba(255,255,255,0.4)">CC 38721904</td>
+                <td><span class="portal-empresa pe-purple">NOMISEG</span></td>
+                <td>Compensar</td><td>—</td><td>—</td>
+                <td><span class="portal-activo">● ACTIVO</span></td>
+                <td><span class="portal-btn pb-blue">Ver</span> <span class="portal-btn pb-orange">Novedad</span> <span class="portal-btn pb-red">Retiro</span></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" style="accent-color:#6366f1"></td>
+                <td style="font-weight:600;color:rgba(255,255,255,0.9)">RODRIGO CASTILLO MEJIA</td>
+                <td style="color:rgba(255,255,255,0.4)">CC 79302817</td>
+                <td><span class="portal-empresa pe-green">SERVITOTAL</span></td>
+                <td>Nueva EPS</td><td>—</td><td>—</td>
+                <td><span class="portal-activo">● ACTIVO</span></td>
+                <td><span class="portal-btn pb-blue">Ver</span> <span class="portal-btn pb-orange">Novedad</span> <span class="portal-btn pb-red">Retiro</span></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" style="accent-color:#6366f1"></td>
+                <td style="font-weight:600;color:rgba(255,255,255,0.9)">DIANA VARGAS LOPEZ</td>
+                <td style="color:rgba(255,255,255,0.4)">CC 52876543</td>
+                <td><span class="portal-empresa pe-green">OUTSERNOVA</span></td>
+                <td>Sanitas</td><td>—</td><td>—</td>
+                <td><span class="portal-activo">● ACTIVO</span></td>
+                <td><span class="portal-btn pb-blue">Ver</span> <span class="portal-btn pb-orange">Novedad</span> <span class="portal-btn pb-red">Retiro</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- end app-viewport -->
+  </div><!-- end browser -->
+
+  <div class="progress-wrap" id="progressWrap"></div>
+  <div class="screen-name" id="screenName"></div>
+  <div class="controls">
+    <button class="ctrl-btn" id="prevBtn">← Anterior</button>
+    <button class="ctrl-btn primary" id="playBtn">⏸ Pausar</button>
+    <button class="ctrl-btn" id="nextBtn">Siguiente →</button>
+  </div>
+
+  <div class="tour-cta">
+    <div class="tour-cta-text">¿Quieres verlo completo?</div>
+    <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20una%20demo%20completa%20de%20BBC%20File%20Service" target="_blank" class="tour-cta-btn">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.528 5.845L.057 23.267a.75.75 0 0 0 .92.928l5.522-1.457A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.699 9.699 0 0 1-4.932-1.344l-.353-.209-3.664.968.975-3.556-.228-.368A9.699 9.699 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+      Contáctanos por WhatsApp
+    </a>
+  </div>
+</div>
+
+<script>
+const scenes = [
+  { id: 'scene0', name: '1 · Inicio de sesión', url: 'app.bbcfile.com/login' },
+  { id: 'scene1', name: '2 · Dashboard — Resumen general', url: 'app.bbcfile.com/dashboard' },
+  { id: 'scene2', name: '3 · Facturación', url: 'app.bbcfile.com/facturacion' },
+  { id: 'scene3', name: '4 · Dashboard Financiero', url: 'app.bbcfile.com/financiero' },
+  { id: 'scene4', name: '5 · Módulo de Cobro', url: 'app.bbcfile.com/cobro' },
+  { id: 'scene5', name: '6 · Tareas', url: 'app.bbcfile.com/tareas' },
+  { id: 'scene6', name: '7 · Portal del Cliente', url: 'portal.bbcfile.com' },
+];
+
+let current = 0;
+let playing = true;
+let timer = null;
+const DURATION = 5000;
+
+// Build dots
+const pw = document.getElementById('progressWrap');
+scenes.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'prog-dot' + (i === 0 ? ' active' : '');
+  d.addEventListener('click', () => goTo(i));
+  pw.appendChild(d);
+});
+
+function goTo(idx) {
+  document.getElementById(scenes[current].id).classList.remove('active');
+  pw.children[current].classList.remove('active');
+  current = (idx + scenes.length) % scenes.length;
+  document.getElementById(scenes[current].id).classList.add('active');
+  pw.children[current].classList.add('active');
+  document.getElementById('screenName').textContent = scenes[current].name;
+  document.getElementById('browserUrl').textContent = scenes[current].url;
+  if (playing) resetTimer();
+}
+
+function resetTimer() {
+  clearInterval(timer);
+  timer = setInterval(() => goTo(current + 1), DURATION);
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+document.getElementById('playBtn').addEventListener('click', () => {
+  playing = !playing;
+  document.getElementById('playBtn').textContent = playing ? '⏸ Pausar' : '▶ Reproducir';
+  if (playing) resetTimer(); else clearInterval(timer);
+});
+
+// Init
+document.getElementById('screenName').textContent = scenes[0].name;
+document.getElementById('browserUrl').textContent = scenes[0].url;
+resetTimer();
+</script>
+</body>
+</html>
