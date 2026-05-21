@@ -295,11 +295,25 @@ nav.scrolled { box-shadow: var(--shadow-sm); }
   display: flex; align-items: center; gap: 2rem; list-style: none;
 }
 .nav-links a {
-  color: var(--ink3); text-decoration: none;
-  font-size: .9rem; font-weight: 400;
+  color: var(--ink2); text-decoration: none;
+  font-size: .9rem; font-weight: 500;
   transition: color .2s;
+  position: relative;
+  padding-bottom: 4px;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 1.5px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s cubic-bezier(.4,0,.2,1);
+  border-radius: 2px;
 }
 .nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { transform: scaleX(1); }
 
 .btn-nav {
   display: inline-flex; align-items: center; gap: 6px;
@@ -369,9 +383,9 @@ section { position: relative; }
 .h2 em { font-style: italic; color: var(--green); }
 
 .sub {
-  font-size: 1.05rem; color: var(--ink3);
+  font-size: 1.08rem; color: var(--ink2);
   line-height: 1.72; margin-top: .85rem;
-  font-weight: 300;
+  max-width: 540px; font-weight: 400;
 }
 
 /* ═══ ANIMATIONS ═══ */
@@ -457,8 +471,15 @@ section { position: relative; }
 }
 
 .hero-sub {
-  font-size: 1.1rem; color: var(--ink3); line-height: 1.72;
-  max-width: 440px; margin-bottom: 2.2rem; font-weight: 300;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.13rem; color: var(--ink2); line-height: 1.78;
+  max-width: 460px; margin-bottom: 2.2rem;
+  font-weight: 400;
+}
+.hero-sub-hl {
+  color: var(--green);
+  font-weight: 600;
+  font-style: normal;
 }
 
 .hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
@@ -608,20 +629,30 @@ section { position: relative; }
 
 /* ═══ TRUST BAR ═══ */
 #trust {
-  padding: 20px 0;
+  padding: 16px 0;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: var(--white);
 }
 .trust-inner {
   display: flex; align-items: center; justify-content: center;
-  gap: 3rem; flex-wrap: wrap;
+  gap: 0; flex-wrap: wrap;
 }
 .trust-item {
-  display: flex; align-items: center; gap: 8px;
-  font-size: .82rem; color: var(--ink3); font-weight: 400;
+  display: flex; align-items: center; gap: 7px;
+  font-size: .85rem; color: var(--ink2); font-weight: 500;
+  padding: 0 1.8rem;
+  position: relative;
+  white-space: nowrap;
 }
-.trust-icon { font-size: 1rem; }
+.trust-item + .trust-item::before {
+  content: '';
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 1px; height: 14px;
+  background: var(--border2);
+}
+.trust-icon { font-size: .95rem; line-height: 1; }
 
 /* ═══ PROBLEMA ═══ */
 #problema {
@@ -644,7 +675,7 @@ section { position: relative; }
   flex-shrink: 0; margin-top: 2px;
 }
 .pain-title { font-weight: 600; font-size: .95rem; color: var(--ink); margin-bottom: 3px; }
-.pain-desc  { font-size: .85rem; color: var(--ink3); line-height: 1.55; }
+.pain-desc  { font-size: .93rem; color: var(--ink2); line-height: 1.65; }
 
 /* Excel mockup */
 .excel-wrap {
@@ -696,7 +727,7 @@ section { position: relative; }
 .feat-head .sub { margin: .9rem auto 0; text-align: center; }
 
 .feat-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
+  display: grid; grid-template-columns: repeat(4,1fr);
   gap: 20px;
 }
 
@@ -728,7 +759,7 @@ section { position: relative; }
   font-size: 1.25rem; margin-bottom: 14px;
 }
 .feat-title { font-weight: 600; font-size: 1rem; color: var(--ink); margin-bottom: 6px; }
-.feat-desc  { font-size: .85rem; color: var(--ink3); line-height: 1.58; }
+.feat-desc  { font-size: .93rem; color: var(--ink2); line-height: 1.65; }
 
 /* ═══ COMO FUNCIONA ═══ */
 #como-funciona {
@@ -767,7 +798,7 @@ section { position: relative; }
   font-size: 1.15rem; font-weight: 600; color: var(--ink);
   letter-spacing: -.02em; margin-bottom: .6rem;
 }
-.step-desc { font-size: .85rem; color: var(--ink3); line-height: 1.6; }
+.step-desc { font-size: .93rem; color: var(--ink2); line-height: 1.65; }
 
 /* ═══ DEMO ═══ */
 #demo {
@@ -818,7 +849,7 @@ section { position: relative; }
   font-size: 1.35rem; flex-shrink: 0;
 }
 .strip-title { font-weight: 600; font-size: 1rem; color: var(--ink); margin-bottom: 3px; }
-.strip-desc  { font-size: .83rem; color: var(--ink3); line-height: 1.5; }
+.strip-desc  { font-size: .95rem; color: var(--ink); line-height: 1.65; }
 .strip-div   { width: 1px; height: 60px; background: var(--border); }
 
 /* ═══ TESTIMONIOS ═══ */
@@ -919,7 +950,7 @@ section { position: relative; }
 .cta-g { display: flex; flex-direction: column; gap: 9px; margin-top: 2rem; }
 .cta-g-item {
   display: flex; align-items: center; gap: 9px;
-  font-size: .88rem; color: var(--ink3);
+  font-size: .95rem; color: var(--ink); font-weight: 500;
 }
 .cta-g-item::before { content: '✓'; color: var(--green); font-weight: 700; font-size: .82rem; }
 
@@ -1083,6 +1114,8 @@ footer {
   .strip-inner { flex-direction: column; gap: 2rem; }
   .strip-div { display: none; }
   .trust-inner { gap: 1.2rem; flex-direction: column; align-items: flex-start; }
+  .trust-item { padding: 0; }
+  .trust-item + .trust-item::before { display: none; }
   .pricing-card { padding: 36px 24px; }
   .h2 { font-size: clamp(1.6rem, 6vw, 2rem); }
   .hero-title { font-size: clamp(2.2rem, 8vw, 3rem); }
@@ -1164,7 +1197,7 @@ footer {
           Nómina y seguridad<br>social, sin <em>Excel</em>,<br>sin errores.
         </h1>
         <p class="hero-sub">
-          BBC File centraliza todo el ciclo de SS colombiana — afiliaciones, aportes, ARL, retiros — en una sola plataforma. Diseñado para outsourcing de nómina y consultoras de RRHH.
+          BBC File centraliza todo el ciclo de SS colombiana — <span class="hero-sub-hl">afiliaciones, aportes, ARL, retiros</span> — en una sola plataforma. Diseñado para outsourcing de nómina y consultoras de RRHH.
         </p>
         <div class="hero-actions">
           <a href="#contacto" class="btn-primary">Ver demo en vivo →</a>
@@ -1345,17 +1378,59 @@ footer {
       </div>
       <div class="feat-card fu">
         <div class="feat-ico">💰</div>
-        <div class="feat-title">Facturación y Cobro</div>
-        <div class="feat-desc">Genera facturas, controla estados de cobro y lleva historial de pagos por cada empresa cliente.</div>
+        <div class="feat-title">Cobro y Cartera</div>
+        <div class="feat-desc">Estados de cobro, historial de pagos y control de cartera por empresa cliente.</div>
       </div>
       <div class="feat-card fu">
         <div class="feat-ico">🌐</div>
         <div class="feat-title">Portal del Cliente</div>
         <div class="feat-desc">Acceso web para cada empresa. Consultan afiliados, facturas y reportes sin necesidad de llamar.</div>
       </div>
-    </div>
-    <div style="text-align:center;margin-top:2.5rem;">
-      <a href="#contacto" class="btn-ghost" style="font-size:.9rem">Ver los 16 módulos completos →</a>
+      <div class="feat-card fu">
+        <div class="feat-ico">📤</div>
+        <div class="feat-title">Retiros y Novedades</div>
+        <div class="feat-desc">Gestión de retiros, licencias e incapacidades con trazabilidad completa por trabajador.</div>
+      </div>
+      <div class="feat-card fu">
+        <div class="feat-ico">📊</div>
+        <div class="feat-title">Dashboard Financiero</div>
+        <div class="feat-desc">Resumen de ingresos, cartera, pendientes y proyecciones mensuales de tu consultora.</div>
+      </div>
+      <div class="feat-card fu">
+        <div class="feat-ico">✅</div>
+        <div class="feat-title">Módulo de Tareas</div>
+        <div class="feat-desc">Asignación por usuario y alertas automáticas de vencimientos críticos de SS.</div>
+      </div>
+      <div class="feat-card fu">
+        <div class="feat-ico">📄</div>
+        <div class="feat-title">Listas y Reportes</div>
+        <div class="feat-desc">Generación de reportes por período con exportación a Excel o PDF.</div>
+      </div>
+      <div class="feat-card fu">
+        <div class="feat-ico">🔍</div>
+        <div class="feat-title">Auditoría y Actividad</div>
+        <div class="feat-desc">Registro completo de cada acción: quién hizo qué y cuándo. Sin cambios sin rastro.</div>
+      </div>
+      <div class="feat-card fu">
+        <div class="feat-ico">☁️</div>
+        <div class="feat-title">Backups Automáticos</div>
+        <div class="feat-desc">Copias de seguridad diarias en la nube. Sin pérdida de datos, sin intervención manual.</div>
+      </div>
+      <div class="feat-card fu">
+        <div class="feat-ico">📱</div>
+        <div class="feat-title">Portal Móvil (PWA)</div>
+        <div class="feat-desc">App instalable en iOS y Android sin descarga de tienda. Acceso completo desde cualquier dispositivo.</div>
+      </div>
+      <div class="feat-card fu">
+        <div class="feat-ico">🔐</div>
+        <div class="feat-title">Control de Acceso</div>
+        <div class="feat-desc">Roles y permisos por usuario. Cada persona ve y hace solo lo que le corresponde.</div>
+      </div>
+      <div class="feat-card fu">
+        <div class="feat-ico">⚙️</div>
+        <div class="feat-title">Personalización</div>
+        <div class="feat-desc">Módulos adaptables al proceso específico de cada consultora. Desarrollamos funcionalidades a medida.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1489,7 +1564,7 @@ footer {
         <div class="pricing-pill">Plan completo</div>
         <div class="pricing-plan">Acceso total al sistema</div>
         <div class="pricing-price">$350.000</div>
-        <div class="pricing-price-sub">COP / mes · IVA no incluido</div>
+        <div class="pricing-price-sub">COP / mes</div>
         <div class="pricing-rule"></div>
         <div class="pricing-inc">Incluye</div>
         <ul class="pricing-list">
