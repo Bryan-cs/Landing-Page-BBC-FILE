@@ -210,8 +210,8 @@
   --green-sm: rgba(34,197,94,0.15);
   --green-md: rgba(34,197,94,0.28);
   --ink:      #e8ebe8;
-  --ink2:     #a8b8a9;
-  --ink3:     #6a7d6b;
+  --ink2:     #c2d0c3;
+  --ink3:     #8fa090;
   --ink4:     #374a38;
   --border:   rgba(255,255,255,0.08);
   --border2:  rgba(255,255,255,0.14);
@@ -240,8 +240,8 @@
     --green-sm: rgba(34,197,94,0.15);
     --green-md: rgba(34,197,94,0.28);
     --ink:      #e8ebe8;
-    --ink2:     #a8b8a9;
-    --ink3:     #6a7d6b;
+    --ink2:     #c2d0c3;
+    --ink3:     #8fa090;
     --ink4:     #374a38;
     --border:   rgba(255,255,255,0.08);
     --border2:  rgba(255,255,255,0.14);
@@ -429,8 +429,23 @@ section { position: relative; }
 /* ═══ HERO ═══ */
 #hero {
   padding: 120px 0 80px;
-  background: linear-gradient(180deg, var(--hero-grad-from) 0%, var(--bg) 60%);
+  background:
+    radial-gradient(ellipse 75% 55% at 72% 35%, rgba(22,163,74,.08) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 15% 75%, rgba(22,163,74,.05) 0%, transparent 60%),
+    linear-gradient(180deg, var(--hero-grad-from) 0%, var(--bg) 65%);
   overflow: hidden;
+  position: relative;
+}
+#hero::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: .45;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.15) 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.15) 55%, transparent 100%);
 }
 
 .hero-inner {
@@ -732,34 +747,66 @@ section { position: relative; }
 }
 
 .feat-card {
+  --cc:        var(--green);
+  --cc-bg:     rgba(22,163,74,.07);
+  --cc-border: rgba(22,163,74,.18);
+  --cc-shadow: rgba(22,163,74,.16);
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--r);
-  padding: 28px 26px;
-  transition: box-shadow .2s, transform .2s, border-color .2s;
+  padding: 26px 24px;
+  transition: box-shadow .25s, transform .25s, border-color .25s;
   position: relative; overflow: hidden;
 }
+.feat-card[data-cat="fin"] {
+  --cc:        #d97706;
+  --cc-bg:     rgba(217,119,6,.07);
+  --cc-border: rgba(217,119,6,.2);
+  --cc-shadow: rgba(217,119,6,.18);
+}
+.feat-card[data-cat="client"] {
+  --cc:        #0ea5e9;
+  --cc-bg:     rgba(14,165,233,.07);
+  --cc-border: rgba(14,165,233,.2);
+  --cc-shadow: rgba(14,165,233,.18);
+}
+.feat-card[data-cat="ops"] {
+  --cc:        #6d28d9;
+  --cc-bg:     rgba(109,40,217,.07);
+  --cc-border: rgba(109,40,217,.2);
+  --cc-shadow: rgba(109,40,217,.18);
+}
 .feat-card:hover {
-  box-shadow: var(--shadow);
-  transform: translateY(-3px);
-  border-color: var(--border2);
+  box-shadow: 0 8px 32px var(--cc-shadow);
+  transform: translateY(-4px);
+  border-color: var(--cc-border);
 }
 .feat-card::before {
   content: ''; position: absolute;
-  top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--green), var(--green-lt));
-  opacity: 0; transition: opacity .25s;
+  top: 0; left: 0; right: 0; height: 2.5px;
+  background: var(--cc);
+  opacity: .3; transition: opacity .25s;
 }
 .feat-card:hover::before { opacity: 1; }
 
 .feat-ico {
-  width: 46px; height: 46px; border-radius: var(--r-sm);
-  background: var(--green-xs); border: 1px solid var(--green-sm);
+  width: 44px; height: 44px; border-radius: var(--r-sm);
+  background: var(--cc-bg); border: 1px solid var(--cc-border);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.25rem; margin-bottom: 14px;
+  font-size: 1.2rem; margin-bottom: 10px;
+  transition: border-color .25s;
 }
-.feat-title { font-weight: 600; font-size: 1rem; color: var(--ink); margin-bottom: 6px; }
-.feat-desc  { font-size: .93rem; color: var(--ink2); line-height: 1.65; }
+.feat-card:hover .feat-ico { border-color: var(--cc); }
+
+.feat-cat-tag {
+  display: inline-block; margin-bottom: 10px;
+  font-size: .6rem; font-weight: 700; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--cc);
+  background: var(--cc-bg); border: 1px solid var(--cc-border);
+  border-radius: 3px; padding: 2px 7px;
+}
+.feat-title { font-weight: 600; font-size: .97rem; color: var(--ink); margin-bottom: 5px; }
+.feat-desc  { font-size: .88rem; color: var(--ink2); line-height: 1.65; }
 
 /* ═══ COMO FUNCIONA ═══ */
 #como-funciona {
@@ -784,6 +831,15 @@ section { position: relative; }
   text-align: center; padding: 2rem 1.5rem;
   background: var(--white); border: 1px solid var(--border);
   border-radius: var(--r); box-shadow: var(--shadow-sm);
+  position: relative; overflow: hidden;
+}
+.step-card::after {
+  content: attr(data-step);
+  position: absolute; right: 12px; top: 8px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 5.5rem; font-weight: 700; line-height: 1;
+  letter-spacing: -.04em; color: var(--green);
+  opacity: .05; pointer-events: none; user-select: none;
 }
 .step-n {
   display: inline-flex; align-items: center; justify-content: center;
@@ -866,26 +922,39 @@ section { position: relative; }
   background: var(--white); border: 1px solid var(--border);
   border-radius: var(--r); padding: 28px;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow .2s, transform .2s;
+  transition: box-shadow .25s, transform .25s, border-color .25s;
+  position: relative; overflow: hidden;
 }
-.testi-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.testi-card::before {
+  content: '\201C';
+  position: absolute; right: 18px; top: 6px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 6rem; line-height: 1; font-weight: 700;
+  color: var(--green); opacity: .07;
+  pointer-events: none; user-select: none;
+}
+.testi-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+  border-color: var(--green-sm);
+}
 
-.testi-stars { color: #f59e0b; font-size: .78rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.testi-stars { color: #f59e0b; font-size: .82rem; letter-spacing: 2px; margin-bottom: 1rem; }
 .testi-quote {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 1rem; font-style: italic;
-  line-height: 1.65; color: var(--ink); margin-bottom: 1.4rem;
+  line-height: 1.7; color: var(--ink); margin-bottom: 1.4rem;
 }
 .testi-author { display: flex; align-items: center; gap: 10px; }
 .testi-av {
-  width: 36px; height: 36px; border-radius: 50%;
+  width: 38px; height: 38px; border-radius: 50%;
   background: var(--green-xs); border: 1.5px solid var(--green-md);
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: .78rem; color: var(--green);
+  font-weight: 700; font-size: .8rem; color: var(--green);
   font-family: 'IBM Plex Mono', monospace; flex-shrink: 0;
 }
-.testi-name { font-weight: 600; font-size: .85rem; color: var(--ink); }
-.testi-role { font-size: .74rem; color: var(--ink3); }
+.testi-name { font-weight: 600; font-size: .88rem; color: var(--ink); }
+.testi-role { font-size: .77rem; color: var(--ink2); font-weight: 500; }
 
 /* ═══ PRICING ═══ */
 #pricing {
@@ -905,6 +974,11 @@ section { position: relative; }
   padding: 48px 40px;
   position: relative;
   box-shadow: 0 0 0 4px var(--green-xs), var(--shadow);
+  animation: card-glow 3.5s ease-in-out infinite;
+}
+@keyframes card-glow {
+  0%,100% { box-shadow: 0 0 0 4px var(--green-xs), var(--shadow); }
+  50%      { box-shadow: 0 0 0 6px var(--green-xs), 0 0 48px rgba(22,163,74,.14), var(--shadow); }
 }
 .pricing-pill {
   position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
@@ -913,31 +987,31 @@ section { position: relative; }
   padding: 4px 16px; border-radius: 4px; white-space: nowrap;
 }
 .pricing-plan {
-  font-size: .75rem; font-weight: 500; color: var(--ink3);
-  margin-bottom: .7rem; letter-spacing: .05em; text-transform: uppercase;
+  font-size: .75rem; font-weight: 600; color: var(--ink2);
+  margin-bottom: .7rem; letter-spacing: .06em; text-transform: uppercase;
 }
 .pricing-price {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 3.2rem; font-weight: 700; letter-spacing: -.04em;
   color: var(--ink); line-height: 1;
 }
-.pricing-price-sub { font-size: .82rem; color: var(--ink3); margin-top: 6px; }
+.pricing-price-sub { font-size: .85rem; color: var(--ink2); margin-top: 6px; font-weight: 500; }
 .pricing-rule { height: 1px; background: var(--border); margin: 1.8rem 0; }
 .pricing-inc {
-  font-size: .65rem; font-weight: 600; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--ink4); margin-bottom: .9rem;
+  font-size: .67rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink3); margin-bottom: .9rem;
 }
 .pricing-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 2rem; }
 .pricing-list li {
   display: flex; align-items: flex-start; gap: 9px;
-  font-size: .9rem; color: var(--ink2);
+  font-size: .93rem; color: var(--ink); font-weight: 400;
 }
 .pricing-list li::before {
   content: '✓'; color: var(--green); font-weight: 700;
   flex-shrink: 0; margin-top: 1px; font-size: .82rem;
 }
 .pricing-cta { width: 100%; justify-content: center; font-size: 1rem; padding: 15px; }
-.pricing-note { text-align: center; font-size: .75rem; color: var(--ink3); margin-top: 1.2rem; }
+.pricing-note { text-align: center; font-size: .78rem; color: var(--ink2); margin-top: 1.2rem; font-weight: 500; }
 
 /* ═══ CONTACTO ═══ */
 #contacto {
@@ -1356,77 +1430,96 @@ footer {
       <p class="sub">16 módulos integrados para el proceso colombiano de seguridad social. Sin add-ons, sin costos extra.</p>
     </div>
     <div class="feat-grid">
-      <div class="feat-card fu">
+      <!-- ── Seguridad Social ── -->
+      <div class="feat-card fu" data-cat="ss">
+        <div class="feat-cat-tag">Seguridad Social</div>
         <div class="feat-ico">👥</div>
         <div class="feat-title">Gestión de Afiliados</div>
         <div class="feat-desc">Alta, baja y novedades por empresa. Control completo de EPS, AFP, ARL y caja de compensación.</div>
       </div>
-      <div class="feat-card fu">
+      <div class="feat-card fu" data-cat="ss">
+        <div class="feat-cat-tag">Seguridad Social</div>
         <div class="feat-ico">🧮</div>
         <div class="feat-title">Calculadora SS</div>
         <div class="feat-desc">Cálculo automático de aportes según IBC, novedades y tabla de cotizaciones vigente de MinTrabajo.</div>
       </div>
-      <div class="feat-card fu">
-        <div class="feat-ico">📋</div>
-        <div class="feat-title">Facturación con Membrete</div>
-        <div class="feat-desc">Genera facturas para cada empresa cliente con el membrete de tu consultora. Control de cobros, estados de pago e historial.</div>
-      </div>
-      <div class="feat-card fu">
+      <div class="feat-card fu" data-cat="ss">
+        <div class="feat-cat-tag">Seguridad Social</div>
         <div class="feat-ico">🦺</div>
         <div class="feat-title">Seguimiento ARL</div>
         <div class="feat-desc">Control de accidentalidad, incapacidades y reportes ARL por trabajador y empresa afiliada.</div>
       </div>
-      <div class="feat-card fu">
-        <div class="feat-ico">💰</div>
-        <div class="feat-title">Cobro y Cartera</div>
-        <div class="feat-desc">Estados de cobro, historial de pagos y control de cartera por empresa cliente.</div>
-      </div>
-      <div class="feat-card fu">
-        <div class="feat-ico">🌐</div>
-        <div class="feat-title">Portal del Cliente</div>
-        <div class="feat-desc">Acceso web para cada empresa. Consultan afiliados, facturas y reportes sin necesidad de llamar.</div>
-      </div>
-      <div class="feat-card fu">
+      <div class="feat-card fu" data-cat="ss">
+        <div class="feat-cat-tag">Seguridad Social</div>
         <div class="feat-ico">📤</div>
         <div class="feat-title">Retiros y Novedades</div>
         <div class="feat-desc">Gestión de retiros, licencias e incapacidades con trazabilidad completa por trabajador.</div>
       </div>
-      <div class="feat-card fu">
+      <!-- ── Finanzas ── -->
+      <div class="feat-card fu" data-cat="fin">
+        <div class="feat-cat-tag">Finanzas</div>
+        <div class="feat-ico">📋</div>
+        <div class="feat-title">Facturación con Membrete</div>
+        <div class="feat-desc">Genera facturas para cada empresa cliente con el membrete de tu consultora. Control de cobros, estados de pago e historial.</div>
+      </div>
+      <div class="feat-card fu" data-cat="fin">
+        <div class="feat-cat-tag">Finanzas</div>
+        <div class="feat-ico">💰</div>
+        <div class="feat-title">Cobro y Cartera</div>
+        <div class="feat-desc">Estados de cobro, historial de pagos y control de cartera por empresa cliente.</div>
+      </div>
+      <div class="feat-card fu" data-cat="fin">
+        <div class="feat-cat-tag">Finanzas</div>
         <div class="feat-ico">📊</div>
         <div class="feat-title">Dashboard Financiero</div>
         <div class="feat-desc">Resumen de ingresos, cartera, pendientes y proyecciones mensuales de tu consultora.</div>
       </div>
-      <div class="feat-card fu">
-        <div class="feat-ico">✅</div>
-        <div class="feat-title">Módulo de Tareas</div>
-        <div class="feat-desc">Asignación por usuario y alertas automáticas de vencimientos críticos de SS.</div>
-      </div>
-      <div class="feat-card fu">
+      <div class="feat-card fu" data-cat="fin">
+        <div class="feat-cat-tag">Finanzas</div>
         <div class="feat-ico">📄</div>
         <div class="feat-title">Listas y Reportes</div>
         <div class="feat-desc">Generación de reportes por período con exportación a Excel o PDF.</div>
       </div>
-      <div class="feat-card fu">
-        <div class="feat-ico">🔍</div>
-        <div class="feat-title">Auditoría y Actividad</div>
-        <div class="feat-desc">Registro completo de cada acción: quién hizo qué y cuándo. Sin cambios sin rastro.</div>
+      <!-- ── Portal ── -->
+      <div class="feat-card fu" data-cat="client">
+        <div class="feat-cat-tag">Portal</div>
+        <div class="feat-ico">🌐</div>
+        <div class="feat-title">Portal del Cliente</div>
+        <div class="feat-desc">Acceso web para cada empresa. Consultan afiliados, facturas y reportes sin necesidad de llamar.</div>
       </div>
-      <div class="feat-card fu">
-        <div class="feat-ico">☁️</div>
-        <div class="feat-title">Backups Automáticos</div>
-        <div class="feat-desc">Copias de seguridad diarias en la nube. Sin pérdida de datos, sin intervención manual.</div>
-      </div>
-      <div class="feat-card fu">
+      <div class="feat-card fu" data-cat="client">
+        <div class="feat-cat-tag">Portal</div>
         <div class="feat-ico">📱</div>
         <div class="feat-title">Portal Móvil (PWA)</div>
         <div class="feat-desc">App instalable en iOS y Android sin descarga de tienda. Acceso completo desde cualquier dispositivo.</div>
       </div>
-      <div class="feat-card fu">
+      <!-- ── Operaciones ── -->
+      <div class="feat-card fu" data-cat="ops">
+        <div class="feat-cat-tag">Operaciones</div>
+        <div class="feat-ico">✅</div>
+        <div class="feat-title">Módulo de Tareas</div>
+        <div class="feat-desc">Asignación por usuario y alertas automáticas de vencimientos críticos de SS.</div>
+      </div>
+      <div class="feat-card fu" data-cat="ops">
+        <div class="feat-cat-tag">Operaciones</div>
+        <div class="feat-ico">🔍</div>
+        <div class="feat-title">Auditoría y Actividad</div>
+        <div class="feat-desc">Registro completo de cada acción: quién hizo qué y cuándo. Sin cambios sin rastro.</div>
+      </div>
+      <div class="feat-card fu" data-cat="ops">
+        <div class="feat-cat-tag">Operaciones</div>
+        <div class="feat-ico">☁️</div>
+        <div class="feat-title">Backups Automáticos</div>
+        <div class="feat-desc">Copias de seguridad diarias en la nube. Sin pérdida de datos, sin intervención manual.</div>
+      </div>
+      <div class="feat-card fu" data-cat="ops">
+        <div class="feat-cat-tag">Operaciones</div>
         <div class="feat-ico">🔐</div>
         <div class="feat-title">Control de Acceso</div>
         <div class="feat-desc">Roles y permisos por usuario. Cada persona ve y hace solo lo que le corresponde.</div>
       </div>
-      <div class="feat-card fu">
+      <div class="feat-card fu" data-cat="ops">
+        <div class="feat-cat-tag">Operaciones</div>
         <div class="feat-ico">⚙️</div>
         <div class="feat-title">Personalización</div>
         <div class="feat-desc">Módulos adaptables al proceso específico de cada consultora. Desarrollamos funcionalidades a medida.</div>
@@ -1445,17 +1538,17 @@ footer {
     </div>
     <div class="steps-grid">
       <div class="steps-line"></div>
-      <div class="step-card fu">
+      <div class="step-card fu" data-step="01">
         <div class="step-n">01</div>
         <h3 class="step-title">Onboarding guiado</h3>
         <p class="step-desc">Migramos su información al sistema y configuramos empresas, afiliados y parámetros de SS junto a su equipo.</p>
       </div>
-      <div class="step-card fu">
+      <div class="step-card fu" data-step="02">
         <div class="step-n">02</div>
         <h3 class="step-title">Opera desde el día 1</h3>
         <p class="step-desc">Gestione afiliados, genere facturas y controle novedades desde cualquier dispositivo, sin instalaciones.</p>
       </div>
-      <div class="step-card fu">
+      <div class="step-card fu" data-step="03">
         <div class="step-n">03</div>
         <h3 class="step-title">Soporte continuo</h3>
         <p class="step-desc">Soporte por WhatsApp y actualizaciones incluidas.</p>
